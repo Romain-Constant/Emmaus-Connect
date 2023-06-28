@@ -1,7 +1,7 @@
 import React from "react";
+import { FaEye } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import styles from "./PhonesTable.module.css";
-import { FaEye } from "react-icons/fa";
 
 function PhonesTable() {
   return (
@@ -26,7 +26,7 @@ function PhonesTable() {
             <td className={styles.rows}>test</td>
             <td className={styles.rows}>test</td>
             <td className={styles.rows}>
-              <Link to={`/secretariat/patient/infos/`}>
+              <Link to="/secretariat/patient/infos/">
                 <FaEye className={styles.eyeIcon} />
               </Link>
             </td>
