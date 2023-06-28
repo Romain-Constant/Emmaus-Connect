@@ -50,7 +50,7 @@ function MainLayout() {
           <FaSignOutAlt className={styles.userIcon} />
         </div>
       </nav>
-      <section>
+      <section className={styles.outletContainer}>
         <Outlet />
       </section>
       <footer className={styles.footerContainer}>
