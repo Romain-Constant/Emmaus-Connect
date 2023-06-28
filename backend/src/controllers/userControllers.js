@@ -50,7 +50,7 @@ const edit = (req, res) => {
     });
 };
 const add = (req, res) => {
-  const user= req.body;
+  const user = req.body;
 
   // TODO validations (length, format...)
 

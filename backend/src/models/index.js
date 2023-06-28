@@ -38,10 +38,12 @@ models.item.setDatabase(pool);
 // when asking for a non existing model
 
 const PhoneManager = require("./PhoneManager");
+
 models.phone = new PhoneManager();
 models.phone.setDatabase(pool);
 
 const UserManager = require("./UserManager");
+
 models.user = new UserManager();
 models.user.setDatabase(pool);
 

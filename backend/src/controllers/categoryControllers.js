@@ -33,7 +33,7 @@ const edit = (req, res) => {
 
   // TODO validations (length, format...)
 
-  item.id = parseInt(req.params.id, 10);
+  category.id = parseInt(req.params.id, 10);
 
   models.category
     .update(category)
@@ -51,7 +51,7 @@ const edit = (req, res) => {
 };
 
 const add = (req, res) => {
-  const category= req.body;
+  const category = req.body;
 
   // TODO validations (length, format...)
 

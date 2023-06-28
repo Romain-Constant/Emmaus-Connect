@@ -29,7 +29,7 @@ const read = (req, res) => {
 };
 
 const edit = (req, res) => {
-  const status= req.body;
+  const status = req.body;
 
   // TODO validations (length, format...)
 

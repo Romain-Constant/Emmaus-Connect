@@ -5,9 +5,9 @@ class PhoneManager extends AbstractManager {
     super({ table: "phone" });
   }
 
-  async insert(phone) {
-    await this.database.query(
-      `INSERT INTO phone (center_id, user_id, status_id, category_id, imei, brand, model, memory, storage, network, service_date, addition_date, phone_condition, image1, image2, image3, price) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+  insert(phone) {
+    return this.database.query(
+      `INSERT INTO ${this.table} (center_id, user_id, status_id, category_id, imei, brand, model, memory, storage, network, service_date, addition_date, phone_condition, image1, image2, image3, price) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       [
         phone.center_id,
         phone.user_id,
@@ -25,11 +25,10 @@ class PhoneManager extends AbstractManager {
         phone.image1,
         phone.image2,
         phone.image3,
-        phone.price
+        phone.price,
       ]
     );
   }
-  
 }
 
 module.exports = PhoneManager;
