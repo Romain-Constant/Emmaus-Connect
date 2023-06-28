@@ -1,7 +1,7 @@
 import React from "react";
-import styles from "./Accueil.module.css";
-import logo from "../assets/emmaus-connect-logo.svg";
 import { Link } from "react-router-dom";
+import logo from "../assets/emmaus-connect-logo.svg";
+import styles from "./Accueil.module.css";
 
 function Accueil() {
   return (

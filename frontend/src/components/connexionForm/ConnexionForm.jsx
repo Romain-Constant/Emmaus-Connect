@@ -6,18 +6,17 @@ function ConnexionForm() {
   const [inputs, setInputs] = useState({});
 
   const handleChange = (event) => {
-    const name = event.target.name;
-    const value = event.target.value;
+    const { name, value } = event.target;
+
     setInputs((values) => ({ ...values, [name]: value }));
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    alert(inputs);
   };
   return (
     <div className={styles.connexionFormContainer}>
-      <div className={styles.imageContainer}></div>
+      <div className={styles.imageContainer}>Image</div>
       <div className={styles.formContainer}>
         <div className={styles.logoContainer}>
           <img src={logo} alt="" />
