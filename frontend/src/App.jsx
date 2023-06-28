@@ -1,5 +1,4 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import "./App.css";
 import MainLayout from "./components/mainLayout/MainLayout";
 import Accueil from "./pages/Accueil";
 import Connexion from "./pages/Connexion";
@@ -7,6 +6,7 @@ import Home from "./pages/Home";
 import NewPhone from "./pages/NewPhone";
 import DbPhonePage from "./pages/DbPhonePage";
 import FaqPage from "./pages/FaqPage";
+import styles from "./App.module.css";
 
 const router = createBrowserRouter([
   {
@@ -47,7 +47,7 @@ const router = createBrowserRouter([
 
 function App() {
   return (
-    <div className="container">
+    <div className={styles.appContainer}>
       <RouterProvider router={router} />
     </div>
   );
