@@ -6,17 +6,11 @@ class UserManager extends AbstractManager {
   }
 
   findByName(name) {
-    return this.connection.query(
-    
-      [name]
-    );
+    return this.connection.query([name]);
   }
 
-  update(phone) {
-    return this.connection.query(
-      `update ${this.table} set //////////////`,
-      
-    );
+  update() {
+    return this.connection.query(`update ${this.table} set //////////////`);
   }
 
   init() {

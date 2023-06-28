@@ -29,9 +29,7 @@ const read = (req, res) => {
 };
 
 const edit = (req, res) => {
-  const status= req.body;
-
-  // TODO validations (length, format...)
+  const status = req.body;
 
   status.id = parseInt(req.params.id, 10);
 

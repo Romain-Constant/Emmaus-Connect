@@ -15,6 +15,7 @@ const browse = (req, res) => {
 const read = (req, res) => {
   models.phone
     .find(req.params.id)
+    // WARNING switch id when PK it'll IMEI
     .then(([rows]) => {
       if (rows[0] == null) {
         res.sendStatus(404);
@@ -50,20 +51,15 @@ const edit = (req, res) => {
     });
 };
 
-const add = (req, res) => {
-  const phone = req.body;
-
-  // TODO validations (length, format...)
-
-  models.phone
-    .insert(phone)
-    .then(([result]) => {
-      res.location(`/phone/${result.insertId}`).sendStatus(201);
-    })
-    .catch((err) => {
-      console.error(err);
-      res.sendStatus(500);
-    });
+const add = async (req, res) => {
+  try {
+    const phone = req.body;
+    const [result] = await models.phone.insert(phone);
+    res.location(`/phone/${result.insertId}`).sendStatus(201);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Error saving the user");
+  }
 };
 
 const destroy = (req, res) => {

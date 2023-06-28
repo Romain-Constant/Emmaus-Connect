@@ -51,7 +51,7 @@ const edit = (req, res) => {
 };
 
 const add = (req, res) => {
-  const center= req.body;
+  const center = req.body;
 
   // TODO validations (length, format...)
 

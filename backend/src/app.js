@@ -14,18 +14,20 @@ const database = mysql.createPool({
 database
   .getConnection()
   .then(() => {
-    console.log("Can reach database");
+    console.info("Serveur okkkk mamen");
   })
   .catch((err) => {
     console.error(err);
   });
 
 const express = require("express");
+
 const app = express();
 
 app.use(express.json());
 
 const cors = require("cors");
+
 app.use(
   cors({
     origin: process.env.FRONTEND_URL ?? "http://localhost:3000",
@@ -34,6 +36,7 @@ app.use(
 );
 
 const router = require("./router");
+
 app.use(router);
 
 app.use(express.static(path.join(__dirname, "../public")));
@@ -55,4 +58,3 @@ if (fs.existsSync(reactIndexFile)) {
 }
 
 module.exports = app;
-
