@@ -32,7 +32,7 @@ img.logo {
   background-color: var(--green);
   border: solid 1px transparent;
   padding: 0.7rem 2rem;
-  border-radius: 20px;
+  border-radius: 2rem;
   color: var(--white);
   font-weight: 600;
   box-shadow: var(--button-shadow);

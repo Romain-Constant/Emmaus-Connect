@@ -9,6 +9,7 @@
   --orange: #f4a261;
   --red: #e76f51;
   --white: whitesmoke;
+  --light-gray: rgb(238, 238, 238);
 
   /* FONT FAMILY */
 
@@ -20,4 +21,6 @@
     rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
   --button-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
     rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+  --big-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
+    rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
 }
