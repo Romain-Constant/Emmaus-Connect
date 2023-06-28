@@ -161,7 +161,7 @@ ALTER TABLE `emaus`.`phone`
   ADD COLUMN `image1` VARCHAR(100),
   ADD COLUMN `image2` VARCHAR(100),
   ADD COLUMN `image3` VARCHAR(100),
-  ADD COLUMN `price` VARCHAR(50) NOT NULL;
+  ADD COLUMN `price` VARCHAR(50);
   
 -- -----------------------------------------------------
 -- Table `emaus`.`address`
