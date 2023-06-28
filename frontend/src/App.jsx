@@ -18,27 +18,27 @@ const router = createBrowserRouter([
     element: <Connexion />,
   },
   {
-    path: "/user",
+    path: "/utilisateur",
     element: <MainLayout />,
     children: [
       {
-        path: "/user",
+        path: "/utilisateur",
         element: <Home />,
       },
       {
-        path: "/user/nouveautelephone",
+        path: "/utilisateur/nouveautelephone",
         element: <NewPhone />,
       },
       {
-        path: "/user/bddtelephones",
+        path: "/utilisateur/bddtelephones",
         element: <DbPhonePage />,
       },
       {
-        path: "/user/bddtelephones/infos/:imei",
+        path: "/utilisateur/bddtelephones/infos/:imei",
         element: <DbPhonePage />,
       },
       {
-        path: "/user/faq",
+        path: "/utilisateur/faq",
         element: <FaqPage />,
       },
     ],

@@ -7,9 +7,11 @@ function Accueil() {
   return (
     <div className={styles.accueilContainer}>
       <nav className={styles.navbarContainer}>
-        <div className={styles.emmausLogoContainer}>
-          <img className={styles.logo} src={logo} alt="emmaus connect logo" />
-        </div>
+        <Link to="/" className={styles.linkContainer}>
+          <div className={styles.emmausLogoContainer}>
+            <img className={styles.logo} src={logo} alt="emmaus connect logo" />
+          </div>
+        </Link>
         <Link to="/connexion">
           <button type="button" className={styles.connexionButton}>
             Se connecter

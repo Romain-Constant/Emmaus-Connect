@@ -16,6 +16,12 @@
   justify-content: space-between;
   padding: 1rem;
   box-shadow: var(--main-shadow);
+  position: fixed;
+  top: 0;
+}
+
+.linkContainer {
+  height: 100%;
 }
 
 .emmausLogoContainer {
@@ -52,6 +58,8 @@ img.logo {
   height: 100px;
   margin-top: auto;
   background-color: var(--blue);
+  position: fixed;
+  bottom: 0;
 }
 
 .listContainer {
