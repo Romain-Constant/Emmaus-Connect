@@ -29,11 +29,11 @@ const read = (req, res) => {
 };
 
 const edit = (req, res) => {
-  const phone= req.body;
+  const phone = req.body;
 
   // TODO validations (length, format...)
 
-  item.id = parseInt(req.params.id, 10);
+  phone.id = parseInt(req.params.id, 10);
 
   models.phone
     .update(phone)

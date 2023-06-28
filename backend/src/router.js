@@ -10,7 +10,7 @@ router.put("/items/:id", itemControllers.edit);
 router.post("/items", itemControllers.add);
 router.delete("/items/:id", itemControllers.destroy);
 
-const phoneControllers=require ("./controllers/PhoneControllers");
+const phoneControllers=require ("./controllers/phoneControllers");
 
 router.get("/phone", phoneControllers.browse);
 router.get("/phone/:id", phoneControllers.read);
