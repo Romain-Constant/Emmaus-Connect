@@ -14,12 +14,12 @@ import NewPhone from "./pages/NewPhone";
 import DbPhonePage from "./pages/DbPhonePage";
 import FaqPage from "./pages/FaqPage";
 import styles from "./App.module.css";
+import ComparePhones from "./pages/ComparePhones";
+import InfosPhonePage from "./pages/InfosPhonePage";
 import { AuthContext } from "./AuthContext";
 
 function App() {
   const { currentUser } = useContext(AuthContext);
-  import ComparePhones from "./pages/ComparePhones";
-  import InfosPhonePage from "./pages/InfosPhonePage";
 
   const secureRouter = createBrowserRouter([
     {
