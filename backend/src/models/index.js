@@ -43,6 +43,11 @@ const CenterManager = require("./CenterManager");
 models.center = new CenterManager();
 models.center.setDatabase(pool); // Fix: Use models.center.setDatabase(pool) instead of models.status.setDatabase(pool)
 
+const CategoryManager = require("./CategoryManager");
+
+models.category = new CategoryManager();
+models.category.setDatabase(pool);
+
 const handler = {
   get(obj, prop) {
     if (prop in obj) {
