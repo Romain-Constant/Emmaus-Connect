@@ -15,7 +15,7 @@ const browse = (req, res) => {
 const read = (req, res) => {
   models.phone
     .find(req.params.id)
-    // WARNING switch id when PK it'll IMEI
+    // WARNING switch id when PK it'll IMEI!!!
     .then(([rows]) => {
       if (rows[0] == null) {
         res.sendStatus(404);
