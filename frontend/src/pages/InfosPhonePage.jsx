@@ -1,12 +1,13 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { FaRegCircleXmark } from "react-icons/fa6";
+import { Link, useParams } from "react-router-dom";
 import iphonePhoto from "../assets/iphone-model.jpeg";
 import styles from "./InfosPhonePage.module.css";
-import { FaRegCircleXmark } from "react-icons/fa6";
 
 function InfosPhonePage() {
   const [phone, setPhone] = useState({});
+  const [selectedStatus, setSelectedStatus] = useState("");
   const { id } = useParams();
 
   useEffect(() => {
@@ -16,12 +17,14 @@ function InfosPhonePage() {
           `http://localhost:5000/phone/${id}`
         );
         setPhone(phoneResponse.data);
+        setSelectedStatus(phoneResponse.data.status);
       } catch (err) {
         console.error(err);
       }
     };
+
     fetchPhones();
-  });
+  }, []);
 
   const getPriceColorClass = (category) => {
     switch (category) {
@@ -39,6 +42,31 @@ function InfosPhonePage() {
         return "";
     }
   };
+
+  const handleStatusChange = async (event) => {
+    setSelectedStatus(event.target.value);
+    await updateStatus(); // Appel de la fonction updateStatus après la mise à jour du statut
+  };
+
+  const updateStatus = async () => {
+    let statutToSend = "";
+    if (selectedStatus == "À vendre") {
+      statutToSend = 0;
+    } else {
+      statutToSend = 1;
+    }
+
+    try {
+      await axios.put(`http://localhost:5000/status/${phone.status_id}}`, {
+        disponibility: statutToSend,
+      });
+      // Optionnel : Effectuer une action après la mise à jour du statut, comme afficher un message de succès.
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  console.log(phone);
 
   return (
     <div className={styles.infosPhonePageContainer}>
@@ -72,7 +100,13 @@ function InfosPhonePage() {
               <div className={styles.separator} />
               <h2 className={styles.specsTitle}>État</h2>
               <div className={styles.separator} />
+              <h2 className={styles.specsTitle}>Site</h2>
+              <div className={styles.separator} />
+              <h2 className={styles.specsTitle}>N° IMEI</h2>
+              <div className={styles.separator} />
               <h2 className={styles.specsTitle}>Prix</h2>
+              <div className={styles.separator} />
+              <h2 className={styles.specsTitle}>Disponibilité</h2>
             </div>
             <div className={styles.right2}>
               <h1 className={styles.specsDesc}>{phone.brand}</h1>
@@ -87,12 +121,27 @@ function InfosPhonePage() {
               <div className={styles.separator} />
               <h1 className={styles.specsDesc}>{phone.phone_condition}</h1>
               <div className={styles.separator} />
+              <h1 className={styles.specsDesc}>{phone.center_city}</h1>
+              <div className={styles.separator} />
+              <h1 className={styles.specsDesc}>{phone.imei}</h1>
+              <div className={styles.separator} />
               <h1
                 className={`${styles.price} ${getPriceColorClass(
                   phone.category
                 )}`}
               >
                 {phone.price}€
+              </h1>
+              <div className={styles.separator} />
+              <h1 className={styles.specsDesc}>
+                <select
+                  value={selectedStatus}
+                  onChange={handleStatusChange}
+                  className={styles.statusSelect}
+                >
+                  <option value="À vendre">À vendre</option>
+                  <option value="Non disponible">Non disponible</option>
+                </select>
               </h1>
             </div>
           </div>

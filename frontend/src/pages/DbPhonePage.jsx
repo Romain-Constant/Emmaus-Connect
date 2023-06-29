@@ -61,8 +61,6 @@ function DbPhonePage() {
     navigate(`/utilisateur/bddtelephones/compare/${phoneId1}/${phoneId2}`);
   };
 
-  console.log(isHovered);
-
   return (
     <div className={styles.DbPhonePageContainer}>
       <div className={styles.filterSideBarContainer}>

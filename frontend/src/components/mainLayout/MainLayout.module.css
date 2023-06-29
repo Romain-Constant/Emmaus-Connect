@@ -16,9 +16,10 @@
   align-items: center;
   justify-content: space-between;
   padding: 1rem;
-  box-shadow: var(--main-shadow);
   position: fixed;
   top: 0;
+  box-shadow: var(--main-shadow);
+  z-index: 1;
 }
 
 .linkContainer {

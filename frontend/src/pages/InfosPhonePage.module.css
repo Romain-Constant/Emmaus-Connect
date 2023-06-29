@@ -22,7 +22,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--light-gray);
 }
 
 .phoneTitleContainer h1 {
@@ -40,15 +41,15 @@
   height: 100%;
   display: flex;
   align-items: center;
-
   gap: 4rem;
+  margin-top: 1rem;
 }
 
 .leftContainer {
   flex: 1;
   height: 100%;
   display: flex;
-  gap: 0.5rem;
+  gap: 0.5%;
 }
 
 .phonePhotosContainer img {
@@ -75,22 +76,21 @@
 .descBloc {
   width: 100%;
   display: flex;
-
   align-items: center;
   gap: 0.2rem;
 }
 
 .specsTitle {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   font-weight: 400;
 }
 
 .specsDesc {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
 }
 
 .price {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
 }
 
 .separator {
@@ -117,4 +117,15 @@
 
 .red {
   color: var(--red);
+}
+
+select {
+  border: none;
+  font-size: 1.2rem;
+  font-weight: 600;
+  border-radius: 5px;
+}
+
+select:focus {
+  outline: solid 2px var(--green);
 }
