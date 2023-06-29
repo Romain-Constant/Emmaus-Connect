@@ -31,6 +31,12 @@ h1.phoneFormText {
   );
 }
 
+.inputFile[type="file"] {
+  padding: 6px 12px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
 .phoneLabelContainer {
   display: flex;
   flex-direction: column;

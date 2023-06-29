@@ -1,46 +1,53 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import styles from "./PhoneForm.module.css";
 
 export default function PhoneForm() {
-  const [identificationMethod, setIdentificationMethod] = useState(null);
   const [phoneInput, setPhoneInput] = useState({});
+
   const handleChange = (event) => {
     const { name, value } = event.target;
-
+    if (name === "imei") {
+      if (value.length > 15) {
+        return;
+      }
+    }
     setPhoneInput((values) => ({ ...values, [name]: value }));
   };
-  const handleSubmit = (event) => {
-    event.preventDefault();
-  };
-  if (!identificationMethod)
-    return (
-      <div className={styles.phoneFormContainer}>
-        <h1 className={styles.phoneFormText}>
-          Commencer l’enregistrement de nouveaux téléphones
-        </h1>
-        <div className={styles.identificationButtonContainer}>
-          <button
-            type="button"
-            onClick={() => setIdentificationMethod("automatique")}
-          >
-            Identification automatique
-          </button>
-          <button
-            type="button"
-            onClick={() => setIdentificationMethod("manuelle")}
-          >
-            Identification manuelle
-          </button>
-        </div>
-      </div>
-    );
-  if (identificationMethod === "automatique")
-    return (
-      <div className={styles.phoneFormContainer}>
-        <h1 className={styles.phoneFormText}>Indisponible pour le moment</h1>
-      </div>
-    );
 
+  const inputRef1 = useRef();
+  const inputRef2 = useRef();
+  const inputRef3 = useRef();
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    const formData = new FormData();
+
+    // Append form fields
+    Object.entries(phoneInput).forEach(([key, value]) => {
+      formData.append(key, value);
+    });
+
+    // Append images
+    formData.append("image1", inputRef1.current.files[0]);
+    formData.append("image2", inputRef2.current.files[0]);
+    formData.append("image3", inputRef3.current.files[0]);
+    console.info(formData);
+    // Send the formData to the server using fetch or axios
+    try {
+      const response = await fetch("YOUR_API_ENDPOINT", {
+        method: "POST",
+        body: formData,
+      });
+      console.info(response);
+
+      // Handle the response
+      // ...
+    } catch (error) {
+      // Handle errors
+      // ...
+    }
+  };
   /*   `center_id`, `user_id`, `status_id`, `category_id`, `imei`, `brand`,
      `model`, `memory`, `storage`, `network`, `service_date`, `addition_date`,
       `phone_condition`, `image1`, `image2`, `image3`, `price` 
@@ -52,103 +59,108 @@ export default function PhoneForm() {
       category_id need to be attribitued by algorithm in the back (HC, A, C etc...) 
       addition_date need to be attributed in the back by getting the current date */
 
-  if (identificationMethod === "manuelle") {
-    const labels = [
-      { name: "imei", placeholder: "Ex : 123456789111111", label: "IMEI" },
-      { name: "brand", placeholder: "Ex : Apple", label: "Marque" },
-      { name: "model", placeholder: "Ex : iphone5", label: "Modèle" },
-      { name: "memory", placeholder: "Ex : 16GB", label: "Mémoire" },
-      { name: "storage", placeholder: "Ex : 256GB", label: "Stockage" },
-      { name: "network", label: "Réseau", options: ["3G", "4G", "5G"] },
-      {
-        name: "service_date",
-        placeholder: "Ex : YYYY-MM-DD",
-        label: "Mise en service",
-      },
-      {
-        name: "phone_condition",
-        label: "Etat",
-        options: [
-          "Dee",
-          "Réparable",
-          "Bloqué",
-          "Reconditionnable",
-          "Reconditionné",
-        ],
-      },
-      { name: "image1", placeholder: "Ex : URL", label: "Image 1" },
-      { name: "image2", placeholder: "Ex : URL", label: "Image 2" },
-      { name: "image3", placeholder: "Ex : URL", label: "Image 3" },
-    ];
+  const labels = [
+    { name: "imei", placeholder: "Ex : 123456789111111", label: "IMEI" },
+    { name: "brand", placeholder: "Ex : Apple", label: "Marque" },
+    { name: "model", placeholder: "Ex : iphone5", label: "Modèle" },
+    { name: "memory", placeholder: "Ex : 16GB", label: "Mémoire" },
+    { name: "storage", placeholder: "Ex : 256GB", label: "Stockage" },
+    { name: "network", label: "Réseau", options: ["3G", "4G", "5G"] },
+    //  TODO fetch center from back to make options
+    { name: "center", label: "Centre", options: ["Bordeaux", "Lille", "Lyon"] },
 
-    return (
-      <div className={styles.phoneFormContainer}>
-        <h1 className={styles.phoneFormText}>
-          Remplissez les champs ci-dessous pour ajouter un téléphone
-        </h1>
-        <form onSubmit={handleSubmit}>
-          {labels.map((label) => {
-            if (label.name === "phone_condition") {
-              return (
-                <label key={label.name} className={styles.phoneLabelContainer}>
-                  {label.label}
-                  <select
-                    required
-                    name={label.name}
-                    value={phoneInput[label.name] || ""}
-                    onChange={handleChange}
-                  >
-                    <option value=""> </option>
-                    {label.options.map((option) => (
-                      <option key={option} value={option}>
-                        {option}
-                      </option>
-                    ))}
-                  </select>
-                </label>
-              );
-            }
+    {
+      name: "service_date",
+      placeholder: "Ex : YYYY-MM-DD",
+      label: "Mise en service",
+    },
+    {
+      name: "phone_condition",
+      label: "Etat",
+      options: [
+        "Dee",
+        "Réparable",
+        "Bloqué",
+        "Reconditionnable",
+        "Reconditionné",
+      ],
+    },
+    { name: "image1", placeholder: "Ex : URL", label: "Image 1" },
+    { name: "image2", placeholder: "Ex : URL", label: "Image 2" },
+    { name: "image3", placeholder: "Ex : URL", label: "Image 3" },
+  ];
 
-            if (label.name === "network") {
-              return (
-                <label key={label.name} className={styles.phoneLabelContainer}>
-                  {label.label}
-                  <select
-                    required
-                    name={label.name}
-                    value={phoneInput[label.name] || ""}
-                    onChange={handleChange}
-                  >
-                    <option value=""> </option>
-                    {label.options.map((option) => (
-                      <option key={option} value={option}>
-                        {option}
-                      </option>
-                    ))}
-                  </select>
-                </label>
-              );
-            }
-
+  return (
+    <div className={styles.phoneFormContainer}>
+      <h1 className={styles.phoneFormText}>
+        Remplissez les champs ci-dessous pour ajouter un téléphone
+      </h1>
+      <form encType="multipart/form-data" onSubmit={handleSubmit}>
+        {labels.map((label) => {
+          if (
+            label.name === "network" ||
+            label.name === "phone_condition" ||
+            label.name === "center"
+          ) {
             return (
               <label key={label.name} className={styles.phoneLabelContainer}>
                 {label.label}
-                <input
+                <select
                   required
-                  type="text"
                   name={label.name}
-                  placeholder={label.placeholder}
                   value={phoneInput[label.name] || ""}
                   onChange={handleChange}
+                >
+                  <option value=""> </option>
+                  {label.options.map((option) => (
+                    <option key={option} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                </select>
+              </label>
+            );
+          }
+          if (label.name.includes("image")) {
+            return (
+              <label
+                htmlFor="file"
+                key={label.name}
+                className={`${styles.phoneLabelContainer} ${styles.labelFile}`}
+              >
+                {label.label}
+                <input
+                  id="file"
+                  className={styles.inputFile}
+                  name={label.name}
+                  type="file"
+                  ref={
+                    (label.name === "image1" && inputRef1) ||
+                    (label.name === "image2" && inputRef2) ||
+                    (label.name === "image3" && inputRef3)
+                  }
                 />
               </label>
             );
-          })}
-          <button type="submit" className={styles.phoneValidateButton}>
-            Confirmer
-          </button>
-        </form>
-      </div>
-    );
-  }
+          }
+          return (
+            <label key={label.name} className={styles.phoneLabelContainer}>
+              {label.label}
+              <input
+                required
+                type={label.name === "service_date" ? "date" : "text"}
+                name={label.name}
+                placeholder={label.placeholder}
+                value={phoneInput[label.name] || ""}
+                onChange={handleChange}
+              />
+            </label>
+          );
+        })}
+        <button type="submit" className={styles.phoneValidateButton}>
+          Confirmer
+        </button>
+      </form>
+    </div>
+  );
 }
