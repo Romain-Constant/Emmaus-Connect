@@ -97,7 +97,7 @@ export default function PhoneForm() {
     },
     {
       name: "phone_condition",
-      label: "Etat",
+      label: "État",
       options: [
         "Dee",
         "Réparable",
