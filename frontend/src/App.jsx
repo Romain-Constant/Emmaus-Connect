@@ -7,6 +7,7 @@ import NewPhone from "./pages/NewPhone";
 import DbPhonePage from "./pages/DbPhonePage";
 import FaqPage from "./pages/FaqPage";
 import styles from "./App.module.css";
+import ComparePhones from "./pages/ComparePhones";
 
 const router = createBrowserRouter([
   {
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
       {
         path: "/utilisateur/bddtelephones/infos/:imei",
         element: <DbPhonePage />,
+      },
+      {
+        path: "/utilisateur/bddtelephones/compare/:id1/:id2",
+        element: <ComparePhones />,
       },
       {
         path: "/utilisateur/faq",

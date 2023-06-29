@@ -2,8 +2,6 @@ require("dotenv").config();
 
 const mysql = require("mysql2/promise");
 
-// create a connection pool to the database
-
 const { DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DB_NAME } = process.env;
 
 const pool = mysql.createPool({
@@ -14,8 +12,6 @@ const pool = mysql.createPool({
   database: DB_NAME,
 });
 
-// try a connection
-
 pool.getConnection().catch(() => {
   console.warn(
     "Warning:",
@@ -25,17 +21,7 @@ pool.getConnection().catch(() => {
   );
 });
 
-// declare and fill models: that's where you should register your own managers
-
 const models = {};
-
-const ItemManager = require("./ItemManager");
-
-models.item = new ItemManager();
-models.item.setDatabase(pool);
-
-// bonus: use a proxy to personalize error message,
-// when asking for a non existing model
 
 const PhoneManager = require("./PhoneManager");
 
@@ -51,6 +37,16 @@ const StatusManager = require("./StatusManager");
 
 models.status = new StatusManager();
 models.status.setDatabase(pool);
+
+const CenterManager = require("./CenterManager");
+
+models.center = new CenterManager();
+models.center.setDatabase(pool); // Fix: Use models.center.setDatabase(pool) instead of models.status.setDatabase(pool)
+
+const CategoryManager = require("./CategoryManager");
+
+models.category = new CategoryManager();
+models.category.setDatabase(pool);
 
 const handler = {
   get(obj, prop) {
