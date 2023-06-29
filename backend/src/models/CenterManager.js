@@ -21,6 +21,17 @@ class CenterManager extends AbstractManager {
     );
   }
 
+  insert(center) {
+    return this.database.query(
+      `INSERT INTO ${this.table} (address_id, phone_number, contact_email)
+      SELECT id, '1234567890', 'contact@example.com' 
+      FROM emaus.address
+      ORDER BY id DESC
+      LIMIT 1`,
+      [center]
+    );
+  }
+
   update(center) {
     const {
       phoneNumber,

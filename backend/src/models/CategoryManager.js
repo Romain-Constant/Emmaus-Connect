@@ -17,24 +17,9 @@ class CategoryManager extends AbstractManager {
 
   find(classification) {
     return this.database.query(
-      `SELECT * FROM ${this.table} where classification = ?`,
+      `SELECT * FROM phone JOIN category ON phone.category_id=category.id where classification = ?`,
       [classification]
     );
-  }
-
-  update(classification) {
-    return this.database.query(
-      `UPDATE ${this.table} SET (classification = ?)`,
-      [classification]
-    );
-  }
-
-  delete(classification) {
-    return this.database.query(
-      `DELETE from ${this.table} WHERE classification = ?`,
-      [classification]
-    );
-    // FOR ADMIN
   }
 }
 module.exports = CategoryManager;

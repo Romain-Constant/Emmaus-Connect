@@ -32,8 +32,6 @@ const read = (req, res) => {
 const edit = (req, res) => {
   const phone = req.body;
 
-  // TODO validations (length, format...)
-
   phone.id = parseInt(req.params.id, 10);
 
   models.phone
@@ -58,7 +56,7 @@ const add = async (req, res) => {
     res.location(`/phone/${result.insertId}`).sendStatus(201);
   } catch (err) {
     console.error(err);
-    res.status(500).send("Error saving the user");
+    res.status(500).send("Error saving the phone");
   }
 };
 

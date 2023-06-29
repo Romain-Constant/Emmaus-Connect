@@ -5,6 +5,7 @@ const fs = require("node:fs");
 const path = require("node:path");
 require("dotenv").config();
 const mysql = require("mysql2/promise");
+// const bodyParser = require("body-parser");
 
 const database = mysql.createPool({
   host: process.env.DB_HOST,
@@ -29,6 +30,8 @@ const app = express();
 
 app.use(express.json());
 app.use(cookieParser());
+
+// app.use(bodyParser.urlencoded({ extended: false }));
 
 const cors = require("cors");
 
