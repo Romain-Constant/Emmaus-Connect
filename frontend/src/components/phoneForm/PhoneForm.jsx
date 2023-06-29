@@ -1,8 +1,23 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import axios from "axios";
 import styles from "./PhoneForm.module.css";
 
 export default function PhoneForm() {
   const [phoneInput, setPhoneInput] = useState({});
+  const [center, setCenter] = useState([]);
+  const FetchData = async () => {
+    try {
+      const result = await axios.get("http://localhost:5000/center");
+      console.info(result.data);
+      setCenter(result.data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useEffect(() => {
+    FetchData();
+  }, []);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -20,34 +35,32 @@ export default function PhoneForm() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
-    const formData = new FormData();
-
-    // Append form fields
-    Object.entries(phoneInput).forEach(([key, value]) => {
-      formData.append(key, value);
-    });
-
-    // Append images
-    formData.append("image1", inputRef1.current.files[0]);
-    formData.append("image2", inputRef2.current.files[0]);
-    formData.append("image3", inputRef3.current.files[0]);
-    console.info(formData);
-    // Send the formData to the server using fetch or axios
+    setPhoneInput((values) => ({
+      ...values,
+      image1: inputRef1.current.files[0],
+      image2: inputRef2.current.files[0],
+      image3: inputRef3.current.files[0],
+      center_id: 1,
+      user_id: 1,
+      status_id: 1,
+      category_id: 1,
+    }));
     try {
-      const response = await fetch("YOUR_API_ENDPOINT", {
-        method: "POST",
-        body: formData,
-      });
+      console.info(phoneInput);
+      const formData = new FormData();
+      formData.append("phoneimg", inputRef1.current.files[0]);
+      formData.append("phoneimg", inputRef2.current.files[0]);
+      formData.append("phoneimg", inputRef3.current.files[0]);
+      const response = await axios.post(
+        "http://localhost:5000/phone/uploadimg",
+        formData
+      );
       console.info(response);
-
-      // Handle the response
-      // ...
     } catch (error) {
-      // Handle errors
-      // ...
+      console.error(error);
     }
   };
+
   /*   `center_id`, `user_id`, `status_id`, `category_id`, `imei`, `brand`,
      `model`, `memory`, `storage`, `network`, `service_date`, `addition_date`,
       `phone_condition`, `image1`, `image2`, `image3`, `price` 
@@ -87,7 +100,13 @@ export default function PhoneForm() {
     },
     { name: "network", label: "Réseau", options: ["3G", "4G", "5G"] },
     //  TODO fetch center from back to make options
-    { name: "center", label: "Centre", options: ["Bordeaux", "Lille", "Lyon"] },
+    {
+      name: "center",
+      label: "Centre",
+      options: center.map(({ city }) => {
+        return `${city}`;
+      }),
+    },
 
     {
       name: "service_date",
@@ -174,6 +193,12 @@ export default function PhoneForm() {
                   name={label.name}
                   type={label.type}
                   ref={label.ref}
+                  onChange={() => {
+                    setPhoneInput((values) => ({
+                      ...values,
+                      image1: inputRef1.current.files[0],
+                    }));
+                  }}
                 />
               </label>
             );

@@ -13,13 +13,15 @@ const browse = (req, res) => {
 };
 
 const read = (req, res) => {
+  const { name } = req.query;
+
   models.category
-    .find(req.params.id)
+    .find(name)
     .then(([rows]) => {
       if (rows[0] == null) {
         res.sendStatus(404);
       } else {
-        res.send(rows[0]);
+        res.send(rows);
       }
     })
     .catch((err) => {
@@ -29,14 +31,14 @@ const read = (req, res) => {
 };
 
 const edit = (req, res) => {
-  const category = req.body;
+  const { classification } = req.body;
 
   // TODO validations (length, format...)
 
-  category.id = parseInt(req.params.id, 10);
+  // category.id = parseInt(req.params.id, 10);
 
   models.category
-    .update(category)
+    .update(classification)
     .then(([result]) => {
       if (result.affectedRows === 0) {
         res.sendStatus(404);
@@ -51,12 +53,12 @@ const edit = (req, res) => {
 };
 
 const add = (req, res) => {
-  const category = req.body;
+  const classification = req.body;
 
   // TODO validations (length, format...)
 
   models.category
-    .insert(category)
+    .insert(classification)
     .then(([result]) => {
       res.location(`/category/${result.insertId}`).sendStatus(201);
     })

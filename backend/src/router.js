@@ -1,14 +1,47 @@
 const express = require("express");
 
 const router = express.Router();
+const fs = require("fs");
 
-const itemControllers = require("./controllers/itemControllers");
+// Ajout de multer
 
-router.get("/items", itemControllers.browse);
-router.get("/items/:id", itemControllers.read);
-router.put("/items/:id", itemControllers.edit);
-router.post("/items", itemControllers.add);
-router.delete("/items/:id", itemControllers.destroy);
+const multer = require("multer");
+
+// Ajout de uuid
+
+const { v4: uuidv4 } = require("uuid");
+
+// On définit la destination de stockage de nos fichiers
+
+// route POST pour recevoir un fichier
+
+const upload = multer({ dest: "./public/uploads" });
+
+router.post(
+  "/phone/uploadimg",
+  upload.array("phoneimg", 3),
+  async (req, res) => {
+    req.files.forEach((file) => {
+      const { originalname, filename } = file;
+      const uniqueId = uuidv4();
+      const newFileName = `${uniqueId}-${originalname}`;
+
+      fs.rename(
+        `./public/uploads/${filename}`,
+        `./public/uploads/${newFileName}`,
+        (err) => {
+          if (err) {
+            throw err;
+          } else {
+            console.info(`File renamed to ${newFileName}`);
+          }
+        }
+      );
+    });
+
+    res.send("Files uploaded");
+  }
+);
 
 const phoneControllers = require("./controllers/phoneControllers");
 
@@ -46,7 +79,7 @@ const centerControllers = require("./controllers/centerControllers");
 
 router.get("/center", centerControllers.browse);
 router.get("/center/:id", centerControllers.read);
-router.put("/center/:id", centerControllers.edit);
+router.put("/center/:name", centerControllers.edit);
 router.post("/center", centerControllers.add);
 router.delete("/center/:id", centerControllers.destroy);
 
