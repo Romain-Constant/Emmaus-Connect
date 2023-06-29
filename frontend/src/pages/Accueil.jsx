@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import logo from "../assets/emmaus-connect-logo.svg";
 import styles from "./Accueil.module.css";
-import PhoneForm from "../components/phoneForm/PhoneForm";
 
 function Accueil() {
   return (
@@ -17,7 +16,6 @@ function Accueil() {
           </button>
         </Link>
       </nav>
-      <PhoneForm />
       <footer className={styles.footerContainer}>
         <ul className={styles.listContainer}>
           <li>Mentions légales</li>
