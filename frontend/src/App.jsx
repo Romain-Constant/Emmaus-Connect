@@ -18,6 +18,8 @@ import { AuthContext } from "./AuthContext";
 
 function App() {
   const { currentUser } = useContext(AuthContext);
+  import ComparePhones from "./pages/ComparePhones";
+  import InfosPhonePage from "./pages/InfosPhonePage";
 
   const secureRouter = createBrowserRouter([
     {
@@ -45,8 +47,12 @@ function App() {
           element: <DbPhonePage />,
         },
         {
-          path: "/utilisateur/bddtelephones/infos/:imei",
-          element: <DbPhonePage />,
+          path: "/utilisateur/bddtelephones/infos/:id",
+          element: <InfosPhonePage />,
+        },
+        {
+          path: "/utilisateur/bddtelephones/compare/:id1/:id2",
+          element: <ComparePhones />,
         },
         {
           path: "/utilisateur/faq",
