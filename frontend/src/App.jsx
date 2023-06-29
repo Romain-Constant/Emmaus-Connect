@@ -8,6 +8,7 @@ import DbPhonePage from "./pages/DbPhonePage";
 import FaqPage from "./pages/FaqPage";
 import styles from "./App.module.css";
 import ComparePhones from "./pages/ComparePhones";
+import InfosPhonePage from "./pages/InfosPhonePage";
 
 const router = createBrowserRouter([
   {
@@ -35,8 +36,8 @@ const router = createBrowserRouter([
         element: <DbPhonePage />,
       },
       {
-        path: "/utilisateur/bddtelephones/infos/:imei",
-        element: <DbPhonePage />,
+        path: "/utilisateur/bddtelephones/infos/:id",
+        element: <InfosPhonePage />,
       },
       {
         path: "/utilisateur/bddtelephones/compare/:id1/:id2",

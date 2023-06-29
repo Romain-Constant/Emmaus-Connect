@@ -1,15 +1,17 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { FaEye } from "react-icons/fa";
+import { FaRegCircleQuestion } from "react-icons/fa6";
 import { Link, useNavigate } from "react-router-dom";
-import styles from "./DbPhonePage.module.css";
 import { convertDate } from "../components/phonesTable/dateUtils";
+import styles from "./DbPhonePage.module.css";
 
 function DbPhonePage() {
   const [phones, setPhones] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectedStatus, setSelectedStatus] = useState(["À vendre"]);
   const [selectedRows, setSelectedRows] = useState([]);
+  const [isHovered, setIsHovered] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -58,6 +60,8 @@ function DbPhonePage() {
     const [phoneId1, phoneId2] = selectedRows;
     navigate(`/utilisateur/bddtelephones/compare/${phoneId1}/${phoneId2}`);
   };
+
+  console.log(isHovered);
 
   return (
     <div className={styles.DbPhonePageContainer}>
@@ -150,6 +154,11 @@ function DbPhonePage() {
           >
             Comparateur
           </button>
+          <FaRegCircleQuestion
+            className={styles.interrogationIcon}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+          />
         </div>
 
         <table className={styles.tableContainer}>
@@ -201,6 +210,14 @@ function DbPhonePage() {
           </tbody>
         </table>
       </div>
+      {isHovered && (
+        <div className={styles.hoverMessage}>
+          <h3 className={styles.modalMessage}>
+            Veuillez sélectionner deux téléphones afin de pouvoir lancer le
+            comparatif.
+          </h3>
+        </div>
+      )}
     </div>
   );
 }
