@@ -21,20 +21,5 @@ class CategoryManager extends AbstractManager {
       [classification]
     );
   }
-
-  update(classification) {
-    return this.database.query(
-      `UPDATE ${this.table} SET (classification = ?)`,
-      [classification]
-    );
-  }
-
-  delete(classification) {
-    return this.database.query(
-      `DELETE from ${this.table} WHERE classification = ?`,
-      [classification]
-    );
-    // FOR ADMIN
-  }
 }
 module.exports = CategoryManager;

@@ -21,18 +21,13 @@ router.delete("/user/:id", userControllers.destroy);
 const categoryControllers = require("./controllers/categoryControllers");
 
 router.get("/category", categoryControllers.browse);
-router.get("/category/:id", categoryControllers.read);
-router.put("/category/:id", categoryControllers.edit);
-router.post("/category", categoryControllers.add);
-router.delete("/category/:id", categoryControllers.destroy);
+router.get("/category/:classification", categoryControllers.read);
 
 const statusControllers = require("./controllers/statusControllers");
 
 router.get("/status", statusControllers.browse);
 router.get("/status/:id", statusControllers.read);
 router.put("/status/:id", statusControllers.edit);
-router.post("/status", statusControllers.add);
-router.delete("/status/:id", statusControllers.destroy);
 
 const centerControllers = require("./controllers/centerControllers");
 

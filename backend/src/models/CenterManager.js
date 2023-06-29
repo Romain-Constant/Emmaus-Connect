@@ -6,7 +6,9 @@ class CenterManager extends AbstractManager {
   }
 
   findAll() {
-    return this.database.query(`SELECT * FROM ${this.table}`);
+    return this.database.query(
+      `SELECT * FROM ${this.table} JOIN address ON center.address_id = address.id`
+    );
   }
 
   find(city) {
@@ -16,6 +18,17 @@ class CenterManager extends AbstractManager {
         ${this.table} 
         INNER JOIN address ON center.address_id = address.id WHERE address.city = ?`,
       [city]
+    );
+  }
+
+  insert(center) {
+    return this.database.query(
+      `INSERT INTO ${this.table} (address_id, phone_number, contact_email)
+      SELECT id, '1234567890', 'contact@example.com' 
+      FROM emaus.address
+      ORDER BY id DESC
+      LIMIT 1`,
+      [center]
     );
   }
 

@@ -50,8 +50,6 @@ const edit = (req, res) => {
 const add = (req, res) => {
   const center = req.body;
 
-  // TODO validations (length, format...)
-
   models.center
     .insert(center)
     .then(([result]) => {
