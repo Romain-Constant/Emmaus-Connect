@@ -33,7 +33,7 @@ const edit = (req, res) => {
 
   // TODO validations (length, format...)
 
-  center.id = parseInt(req.params.id, 10);
+  center.adress_id = parseInt(req.params.id, 10);
 
   models.center
     .update(center)

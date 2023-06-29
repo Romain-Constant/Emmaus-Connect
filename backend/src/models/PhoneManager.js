@@ -90,14 +90,14 @@ update(phone) {
       
     ]
   );
-  //Not sure for this request, need codereview
+  // Not sure for this request, need codereview
 }
 
 delete(id){
   return this.database.query(
     `DELETE from ${this.table} WHERE id = ?`, [id]
   );
-  //doing this methode for admin !!!
+  // doing this methode for admin !!!
 }
 
 }
