@@ -43,14 +43,9 @@ function InfosPhonePage() {
     }
   };
 
-  const handleStatusChange = async (event) => {
-    setSelectedStatus(event.target.value);
-    await updateStatus(); // Appel de la fonction updateStatus après la mise à jour du statut
-  };
-
   const updateStatus = async () => {
     let statutToSend = "";
-    if (selectedStatus == "À vendre") {
+    if (selectedStatus === "À vendre") {
       statutToSend = 0;
     } else {
       statutToSend = 1;
@@ -66,7 +61,10 @@ function InfosPhonePage() {
     }
   };
 
-  console.log(phone);
+  const handleStatusChange = async (event) => {
+    setSelectedStatus(event.target.value);
+    await updateStatus(); // Appel de la fonction updateStatus après la mise à jour du statut
+  };
 
   return (
     <div className={styles.infosPhonePageContainer}>
