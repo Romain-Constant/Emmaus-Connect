@@ -188,6 +188,7 @@ export default function PhoneForm() {
                 placeholder={label.placeholder}
                 value={phoneInput[label.name] || ""}
                 onChange={handleChange}
+                min="0"
               />
             </label>
           );
