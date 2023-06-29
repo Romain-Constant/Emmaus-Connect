@@ -17,7 +17,7 @@ class CategoryManager extends AbstractManager {
 
   find(classification) {
     return this.database.query(
-      `SELECT * FROM ${this.table} where classification = ?`,
+      `SELECT * FROM phone JOIN category ON phone.category_id=category.id where classification = ?`,
       [classification]
     );
   }

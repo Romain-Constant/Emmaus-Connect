@@ -28,6 +28,7 @@ const statusControllers = require("./controllers/statusControllers");
 router.get("/status", statusControllers.browse);
 router.get("/status/:id", statusControllers.read);
 router.put("/status/:id", statusControllers.edit);
+router.post("/status", statusControllers.add);
 
 const centerControllers = require("./controllers/centerControllers");
 

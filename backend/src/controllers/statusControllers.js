@@ -28,6 +28,17 @@ const read = (req, res) => {
     });
 };
 
+const add = async (req, res) => {
+  try {
+    const status = req.body;
+    const [result] = await models.status.insert(status);
+    res.location(`/status/${result.insertId}`).sendStatus(201);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Error saving the status");
+  }
+};
+
 const edit = (req, res) => {
   const status = req.body;
 
@@ -52,4 +63,5 @@ module.exports = {
   browse,
   read,
   edit,
+  add,
 };

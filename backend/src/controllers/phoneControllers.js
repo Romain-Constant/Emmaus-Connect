@@ -56,7 +56,7 @@ const add = async (req, res) => {
     res.location(`/phone/${result.insertId}`).sendStatus(201);
   } catch (err) {
     console.error(err);
-    res.status(500).send("Error saving the user");
+    res.status(500).send("Error saving the phone");
   }
 };
 
