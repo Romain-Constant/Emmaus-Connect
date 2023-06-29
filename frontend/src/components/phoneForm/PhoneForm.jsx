@@ -60,11 +60,31 @@ export default function PhoneForm() {
       addition_date need to be attributed in the back by getting the current date */
 
   const labels = [
-    { name: "imei", placeholder: "Ex : 123456789111111", label: "IMEI" },
-    { name: "brand", placeholder: "Ex : Apple", label: "Marque" },
-    { name: "model", placeholder: "Ex : iphone5", label: "Modèle" },
-    { name: "memory", placeholder: "Ex : 16GB", label: "Mémoire" },
-    { name: "storage", placeholder: "Ex : 256GB", label: "Stockage" },
+    {
+      name: "imei",
+      placeholder: "Ex : 123456789111111",
+      label: "IMEI",
+      type: "number",
+    },
+    { name: "brand", placeholder: "Ex : Apple", label: "Marque", type: "text" },
+    {
+      name: "model",
+      placeholder: "Ex : iphone5",
+      label: "Modèle",
+      type: "text",
+    },
+    {
+      name: "memory",
+      placeholder: "Ex : 16",
+      label: "Mémoire (GB)",
+      type: "number",
+    },
+    {
+      name: "storage",
+      placeholder: "Ex : 256",
+      label: "Stockage (GB)",
+      type: "number",
+    },
     { name: "network", label: "Réseau", options: ["3G", "4G", "5G"] },
     //  TODO fetch center from back to make options
     { name: "center", label: "Centre", options: ["Bordeaux", "Lille", "Lyon"] },
@@ -73,6 +93,7 @@ export default function PhoneForm() {
       name: "service_date",
       placeholder: "Ex : YYYY-MM-DD",
       label: "Mise en service",
+      type: "date",
     },
     {
       name: "phone_condition",
@@ -85,9 +106,27 @@ export default function PhoneForm() {
         "Reconditionné",
       ],
     },
-    { name: "image1", placeholder: "Ex : URL", label: "Image 1" },
-    { name: "image2", placeholder: "Ex : URL", label: "Image 2" },
-    { name: "image3", placeholder: "Ex : URL", label: "Image 3" },
+    {
+      name: "image1",
+      placeholder: "Ex : URL",
+      label: "Image 1",
+      type: "file",
+      ref: inputRef1,
+    },
+    {
+      name: "image2",
+      placeholder: "Ex : URL",
+      label: "Image 2",
+      type: "file",
+      ref: inputRef2,
+    },
+    {
+      name: "image3",
+      placeholder: "Ex : URL",
+      label: "Image 3",
+      type: "file",
+      ref: inputRef3,
+    },
   ];
 
   return (
@@ -133,12 +172,8 @@ export default function PhoneForm() {
                   id="file"
                   className={styles.inputFile}
                   name={label.name}
-                  type="file"
-                  ref={
-                    (label.name === "image1" && inputRef1) ||
-                    (label.name === "image2" && inputRef2) ||
-                    (label.name === "image3" && inputRef3)
-                  }
+                  type={label.type}
+                  ref={label.ref}
                 />
               </label>
             );
@@ -148,7 +183,7 @@ export default function PhoneForm() {
               {label.label}
               <input
                 required
-                type={label.name === "service_date" ? "date" : "text"}
+                type={label.type}
                 name={label.name}
                 placeholder={label.placeholder}
                 value={phoneInput[label.name] || ""}
