@@ -42,6 +42,16 @@ models.user.setDatabase(pool);
 // bonus: use a proxy to personalize error message,
 // when asking for a non existing model
 
+const PhoneManager = require("./PhoneManager");
+
+models.phone = new PhoneManager();
+models.phone.setDatabase(pool);
+
+const StatusManager = require("./StatusManager");
+
+models.status = new StatusManager();
+models.status.setDatabase(pool);
+
 const handler = {
   get(obj, prop) {
     if (prop in obj) {
