@@ -2,8 +2,7 @@ const express = require("express");
 
 const router = express.Router();
 
-
-const phoneControllers=require ("./controllers/phoneControllers");
+const phoneControllers = require("./controllers/phoneControllers");
 
 router.get("/phone", phoneControllers.browse);
 router.get("/phone/:id", phoneControllers.read);

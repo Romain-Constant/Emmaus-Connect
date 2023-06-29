@@ -24,22 +24,27 @@ pool.getConnection().catch(() => {
 const models = {};
 
 const PhoneManager = require("./PhoneManager");
+
 models.phone = new PhoneManager();
 models.phone.setDatabase(pool);
 
 const UserManager = require("./UserManager");
+
 models.user = new UserManager();
 models.user.setDatabase(pool);
 
 const StatusManager = require("./StatusManager");
+
 models.status = new StatusManager();
 models.status.setDatabase(pool);
 
 const CenterManager = require("./CenterManager");
+
 models.center = new CenterManager();
 models.center.setDatabase(pool);
 
 const CategoryManager = require("./CategoryManager");
+
 models.category = new CategoryManager();
 models.category.setDatabase(pool);
 

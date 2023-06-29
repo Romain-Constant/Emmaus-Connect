@@ -21,16 +21,17 @@ class CenterManager extends AbstractManager {
 
   update(center) {
     const {
-      phone_number,
-      contact_email,
+      phoneNumber,
+      contactEmail,
       city,
       department,
       district,
-      postal_code,
-      street_number,
-      street_type,
+      postalCode,
+      streetNumber,
+      streetType,
       cityParams,
     } = center;
+
     return this.database.query(
       `UPDATE ${this.table}
       JOIN emaus.address AS a ON center.address_id = a.id
@@ -44,14 +45,14 @@ class CenterManager extends AbstractManager {
           a.street_type = ?
       WHERE a.city = ?`,
       [
-        phone_number,
-        contact_email,
+        phoneNumber,
+        contactEmail,
         city,
         department,
         district,
-        postal_code,
-        street_number,
-        street_type,
+        postalCode,
+        streetNumber,
+        streetType,
         cityParams,
       ]
     );

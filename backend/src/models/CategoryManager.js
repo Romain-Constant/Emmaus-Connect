@@ -4,6 +4,7 @@ class CategoryManager extends AbstractManager {
   constructor() {
     super({ table: "category" });
   }
+
   Insert(classification) {
     return this.database.query(`INSERT INTO ${this.table} (classification)`, [
       classification,

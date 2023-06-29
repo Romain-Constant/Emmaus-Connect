@@ -1,5 +1,5 @@
-const AbstractManager = require("./AbstractManager");
 const moment = require("moment");
+const AbstractManager = require("./AbstractManager");
 
 class StatusManager extends AbstractManager {
   constructor() {

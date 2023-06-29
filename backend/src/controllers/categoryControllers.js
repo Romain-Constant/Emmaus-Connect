@@ -13,8 +13,7 @@ const browse = (req, res) => {
 };
 
 const read = (req, res) => {
-  const {name} = req.query;
-  
+  const { name } = req.query;
 
   models.category
     .find(name)
@@ -32,7 +31,7 @@ const read = (req, res) => {
 };
 
 const edit = (req, res) => {
-  const {classification} = req.body;
+  const { classification } = req.body;
 
   // TODO validations (length, format...)
 

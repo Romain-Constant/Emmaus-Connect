@@ -4,7 +4,9 @@ class AbstractManager {
   }
 
   find(id) {
-    return this.database.query(`select * from ${this.table} where id = ?`, [id]);
+    return this.database.query(`select * from ${this.table} where id = ?`, [
+      id,
+    ]);
   }
 
   findAll() {
@@ -21,4 +23,3 @@ class AbstractManager {
 }
 
 module.exports = AbstractManager;
-
