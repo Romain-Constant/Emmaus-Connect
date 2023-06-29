@@ -5,9 +5,13 @@ import styles from "./PhoneForm.module.css";
 export default function PhoneForm() {
   const [phoneInput, setPhoneInput] = useState({});
   const [center, setCenter] = useState([]);
+  const inputRef1 = useRef();
+  const inputRef2 = useRef();
+  const inputRef3 = useRef();
+
   const FetchData = async () => {
     try {
-      const result = await axios.get("http://localhost:5000/center");
+      const result = await axios.get(`http://localhost:5000/center`);
       console.info(result.data);
       setCenter(result.data);
     } catch (err) {
@@ -29,36 +33,44 @@ export default function PhoneForm() {
     setPhoneInput((values) => ({ ...values, [name]: value }));
   };
 
-  const inputRef1 = useRef();
-  const inputRef2 = useRef();
-  const inputRef3 = useRef();
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    setPhoneInput((values) => ({
-      ...values,
-      image1: inputRef1.current.files[0],
-      image2: inputRef2.current.files[0],
-      image3: inputRef3.current.files[0],
-      center_id: 1,
-      user_id: 1,
-      status_id: 1,
-      category_id: 1,
-    }));
+  const pushFormtoDB = async () => {
     try {
       console.info(phoneInput);
-      const formData = new FormData();
-      formData.append("phoneimg", inputRef1.current.files[0]);
-      formData.append("phoneimg", inputRef2.current.files[0]);
-      formData.append("phoneimg", inputRef3.current.files[0]);
       const response = await axios.post(
-        "http://localhost:5000/phone/uploadimg",
-        formData
+        `http://localhost:5000/phone`,
+        phoneInput
       );
       console.info(response);
     } catch (error) {
       console.error(error);
     }
+  };
+
+  // const pushImgtoDB = async () => {
+  //   try {
+  //     const formData = new FormData();
+  //     formData.append("phoneimg", inputRef1.current.files[0]);
+  //     formData.append("phoneimg", inputRef2.current.files[0]);
+  //     formData.append("phoneimg", inputRef3.current.files[0]);
+  //     const response = await axios.post(
+  //       `http://localhost:5000/phone/uploadimg`,
+  //       formData
+  //     );
+  //     console.info(response);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    // await setPhoneInput((values) => ({
+    //   ...values,
+    //   center_id: 1,
+    //   user_id: 1,
+    //   status_id: 1,
+    //   category_id: 1,
+    // }));
+    pushFormtoDB();
   };
 
   /*   `center_id`, `user_id`, `status_id`, `category_id`, `imei`, `brand`,
