@@ -1,19 +1,32 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styles from "./ConnexionForm.module.css";
 import logo from "../../assets/emmaus-small-logo.svg";
+import { AuthContext } from "../../AuthContext";
 
 function ConnexionForm() {
   const [inputs, setInputs] = useState({});
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
+  const { login } = useContext(AuthContext);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-
     setInputs((values) => ({ ...values, [name]: value }));
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    login(inputs)
+      .then(() => {
+        navigate("/utilisateur");
+      })
+      .catch((err) => {
+        console.error(err);
+        setError(err.response.data);
+      });
   };
+
   return (
     <div className={styles.connexionFormContainer}>
       <div className={styles.imageContainer}>
@@ -50,6 +63,8 @@ function ConnexionForm() {
             Connexion
           </button>
         </form>
+        <br />
+        {error && <p>{error}</p>}
       </div>
     </div>
   );

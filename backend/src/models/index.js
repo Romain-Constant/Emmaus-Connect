@@ -23,15 +23,23 @@ pool.getConnection().catch(() => {
 
 const models = {};
 
-const PhoneManager = require("./PhoneManager");
+const ItemManager = require("./ItemManager");
 
-models.phone = new PhoneManager();
-models.phone.setDatabase(pool);
+models.item = new ItemManager();
+models.item.setDatabase(pool);
 
 const UserManager = require("./UserManager");
 
 models.user = new UserManager();
 models.user.setDatabase(pool);
+
+// bonus: use a proxy to personalize error message,
+// when asking for a non existing model
+
+const PhoneManager = require("./PhoneManager");
+
+models.phone = new PhoneManager();
+models.phone.setDatabase(pool);
 
 const StatusManager = require("./StatusManager");
 

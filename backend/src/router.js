@@ -43,6 +43,17 @@ router.post(
   }
 );
 
+const userControllers = require("./controllers/userControllers");
+
+router.get("/users", userControllers.browse);
+router.get("/users/:id", userControllers.read);
+router.put("/users/:id", userControllers.edit);
+router.post("/users", userControllers.add);
+router.delete("/users/:id", userControllers.destroy);
+
+router.post("/users/login", userControllers.login);
+router.post("/users/logout", userControllers.logout);
+
 const phoneControllers = require("./controllers/phoneControllers");
 
 router.get("/phone", phoneControllers.browse);
@@ -50,14 +61,6 @@ router.get("/phone/:id", phoneControllers.read);
 router.put("/phone/:id", phoneControllers.edit);
 router.post("/phone", phoneControllers.add);
 router.delete("/phone/:id", phoneControllers.destroy);
-
-const userControllers = require("./controllers/userControllers");
-
-router.get("/user", userControllers.browse);
-router.get("/user/:id", userControllers.read);
-router.put("/user/:id", userControllers.edit);
-router.post("/user", userControllers.add);
-router.delete("/user/:id", userControllers.destroy);
 
 const categoryControllers = require("./controllers/categoryControllers");
 
