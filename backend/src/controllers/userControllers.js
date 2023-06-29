@@ -5,6 +5,7 @@ dotenv.config();
 const jwt = require("jsonwebtoken");
 
 const models = require("../models");
+const userManager = require("../models/UserManager");
 
 const browse = async (req, res) => {
   try {
@@ -63,11 +64,40 @@ const add = (req, res) => {
     return;
   }
 
-  models.user
-    .insert(user)
-    .then(([result]) => {
-      const userId = result.insertId;
-      res.location(`/users/${userId}`).sendStatus(201);
+  const {
+    centerId,
+    city,
+    department,
+    district,
+    postalCode,
+    streetNumber,
+    streetType,
+    email,
+    password,
+    firstname,
+    lastname,
+    phoneNumber,
+    role,
+  } = user;
+
+  userManager
+    .insertUserWithAddress(
+      centerId,
+      city,
+      department,
+      district,
+      postalCode,
+      streetNumber,
+      streetType,
+      email,
+      password,
+      firstname,
+      lastname,
+      phoneNumber,
+      role
+    )
+    .then(() => {
+      res.sendStatus(201);
     })
     .catch((err) => {
       console.error(err);
@@ -97,7 +127,7 @@ const login = (req, res) => {
     if (users.length === 0) {
       res.sendStatus(404);
     } else if (password !== users[0].password) {
-      res.sendStatus(404);
+      res.status(400).json("Wrong username or password !");
     } else {
       const user = { ...users[0] };
       delete user.password;

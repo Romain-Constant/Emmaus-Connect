@@ -5,50 +5,53 @@ class UserManager extends AbstractManager {
     super({ table: "User" });
   }
 
-  insert(user) {
-    const addressQuery = `
-      INSERT INTO address (city, department, district, postal_code, street_number, street_type)
-      VALUES (?, ?, ?, ?, ?, ?)
+  insertUserWithAddress(
+    centerId,
+    city,
+    department,
+    district,
+    postalCode,
+    streetNumber,
+    streetType,
+    email,
+    password,
+    firstname,
+    lastname,
+    phoneNumber,
+    role
+  ) {
+    const insertAddressQuery = `
+      INSERT INTO \`emaus\`.\`address\` (\`city\`, \`department\`, \`district\`, \`postal_code\`, \`street_number\`, \`street_type\`)
+      VALUES (?, ?, ?, ?, ?, ?);
     `;
-    return this.database
-      .query(addressQuery, [
-        user.city,
-        user.department,
-        user.district,
-        user.postal_code,
-        user.street_number,
-        user.street_type,
-      ])
-      .then(() => {
-        const getLastInsertId = `SELECT LAST_INSERT_ID() AS address_id`;
-        return this.database.query(getLastInsertId);
-      })
-      .then(([addressResult]) => {
-        const addressId = addressResult[0].address_id;
 
-        const userQuery = `
-        INSERT INTO user (center_id, address_id, email, password, firstname, lastname, phone_number, role)
-        VALUES (
-          (SELECT id FROM center ORDER BY RAND() LIMIT 1),
-          ?,
-          ?,
-          ?,
-          ?,
-          ?,
-          ?,
-          ?
-        )
-      `;
-        return this.database.query(userQuery, [
-          addressId,
-          user.email,
-          user.password,
-          user.firstname,
-          user.lastname,
-          user.phone_number,
-          user.role,
-        ]);
-      });
+    const insertUserQuery = `
+      INSERT INTO \`emaus\`.\`user\` (\`center_id\`, \`address_id\`, \`email\`, \`password\`, \`firstname\`, \`lastname\`, \`phone_number\`, \`role\`)
+      VALUES (?, LAST_INSERT_ID(), ?, ?, ?, ?, ?, ?);
+    `;
+
+    return this.database.transaction(async (connection) => {
+      await connection.query(insertAddressQuery, [
+        city,
+        department,
+        district,
+        postalCode,
+        streetNumber,
+        streetType,
+      ]);
+      const insertedAddressId = connection.getLastInsertId();
+
+      await connection.query(insertUserQuery, [
+        centerId,
+        insertedAddressId,
+        email,
+        password,
+        firstname,
+        lastname,
+        phoneNumber,
+        role,
+      ]);
+    });
   }
 
   findAllUsers() {
@@ -85,6 +88,9 @@ class UserManager extends AbstractManager {
         u.id AS user_id,
         u.email,
         u.password,
+        u.firstname,
+        u.lastname,
+        u.phone_number,
         u.role,
         c.id AS center_id,
         c.phone_number AS center_phone,

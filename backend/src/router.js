@@ -19,7 +19,7 @@ router.post("/users", userControllers.add);
 router.delete("/users/:id", userControllers.destroy);
 
 router.post("/users/login", userControllers.login);
-// router.post("users/logout", userControllers.logout)
+router.post("/users/logout", userControllers.logout);
 
 const phoneControllers = require("./controllers/phoneControllers");
 
