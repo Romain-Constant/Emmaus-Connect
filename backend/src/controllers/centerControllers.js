@@ -30,11 +30,8 @@ const read = (req, res) => {
 
 const edit = (req, res) => {
   const center = req.body;
-
+  center.cityParams = req.params.name;
   // TODO validations (length, format...)
-
-  center.adress_id = parseInt(req.params.id, 10);
-
   models.center
     .update(center)
     .then(([result]) => {

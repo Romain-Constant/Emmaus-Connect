@@ -39,7 +39,7 @@ const centerControllers = require("./controllers/centerControllers");
 
 router.get("/center", centerControllers.browse);
 router.get("/center/:id", centerControllers.read);
-router.put("/center/:id", centerControllers.edit);
+router.put("/center/:name", centerControllers.edit);
 router.post("/center", centerControllers.add);
 router.delete("/center/:id", centerControllers.destroy);
 
