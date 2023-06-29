@@ -1,8 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import styles from "./Connexion.module.css";
 import logo from "../assets/emmaus-connect-logo.svg";
 import ConnexionForm from "../components/connexionForm/ConnexionForm";
+import Footer from "../components/footer/Footer";
+import styles from "./Connexion.module.css";
 
 function Connexion() {
   return (
@@ -17,13 +18,7 @@ function Connexion() {
       <section className={styles.pageContainer}>
         <ConnexionForm />
       </section>
-      <footer className={styles.footerContainer}>
-        <ul className={styles.listContainer}>
-          <li>Mentions légales</li>
-          <li>Politique de confidentialité</li>
-          <li>Emmaûs Connect avec LaCollecte.tech</li>
-        </ul>
-      </footer>
+      <Footer />
     </div>
   );
 }

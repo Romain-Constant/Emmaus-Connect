@@ -9,7 +9,7 @@ class StatusManager extends AbstractManager {
     return this.database.query(`select * from  ${this.table}`);
   }
 
-  update (status) {
+  update(status) {
     return this.database.query(
       `UPDATE ${this.table} SET (id =?, update_date = ?, disponibility=?) WHERE id = ?`,
       [status.id, status.user_id, status.update_date, status.disponibility]
@@ -18,4 +18,3 @@ class StatusManager extends AbstractManager {
 }
 
 module.exports = StatusManager;
-  

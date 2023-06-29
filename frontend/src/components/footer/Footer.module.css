@@ -1,0 +1,24 @@
+@import url("../../GlobalVariables.css");
+
+.footerContainer {
+  width: 100%;
+  height: 100px;
+  margin-top: auto;
+  background-color: #264653;
+  position: fixed;
+  bottom: 0;
+}
+
+.listContainer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10%;
+}
+
+.listContainer li {
+  color: var(--white);
+  list-style: none;
+}

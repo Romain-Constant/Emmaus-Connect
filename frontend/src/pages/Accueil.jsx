@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import logo from "../assets/emmaus-connect-logo.svg";
 import styles from "./Accueil.module.css";
+import Footer from "../components/footer/Footer";
 
 function Accueil() {
   return (
@@ -18,13 +19,7 @@ function Accueil() {
           </button>
         </Link>
       </nav>
-      <footer className={styles.footerContainer}>
-        <ul className={styles.listContainer}>
-          <li>Mentions légales</li>
-          <li>Politique de confidentialité</li>
-          <li>Emmaûs Connect avec LaCollecte.tech</li>
-        </ul>
-      </footer>
+      <Footer />
     </div>
   );
 }

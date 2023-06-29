@@ -1,7 +1,8 @@
 import React from "react";
-import { FaUserAlt, FaSignOutAlt } from "react-icons/fa";
+import { FaSignOutAlt, FaUserAlt } from "react-icons/fa";
 import { Link, NavLink, Outlet } from "react-router-dom";
 import logo from "../../assets/emmaus-connect-logo.svg";
+import Footer from "../footer/Footer";
 import styles from "./MainLayout.module.css";
 
 function MainLayout() {
@@ -53,13 +54,7 @@ function MainLayout() {
       <section className={styles.outletContainer}>
         <Outlet />
       </section>
-      <footer className={styles.footerContainer}>
-        <ul className={styles.listContainer}>
-          <li>Mentions légales</li>
-          <li>Politique de confidentialité</li>
-          <li>Emmaûs Connect avec LaCollecte.tech</li>
-        </ul>
-      </footer>
+      <Footer />
     </div>
   );
 }
