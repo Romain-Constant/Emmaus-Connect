@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { FaEye } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "./DbPhonePage.module.css";
 import { convertDate } from "../components/phonesTable/dateUtils";
 
@@ -10,6 +10,7 @@ function DbPhonePage() {
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectedStatus, setSelectedStatus] = useState(["À vendre"]);
   const [selectedRows, setSelectedRows] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchAllPhones = async () => {
@@ -48,11 +49,14 @@ function DbPhonePage() {
   const handleRowSelect = (phoneId) => {
     if (selectedRows.includes(phoneId)) {
       setSelectedRows(selectedRows.filter((id) => id !== phoneId));
-    } else {
-      if (selectedRows.length < 2) {
-        setSelectedRows([...selectedRows, phoneId]);
-      }
+    } else if (selectedRows.length < 2) {
+      setSelectedRows([...selectedRows, phoneId]);
     }
+  };
+
+  const handleButtonClick = () => {
+    const [phoneId1, phoneId2] = selectedRows;
+    navigate(`/utilisateur/bddtelephones/compare/${phoneId1}/${phoneId2}`);
   };
 
   return (
@@ -136,7 +140,18 @@ function DbPhonePage() {
         </div>
       </div>
       <div className={styles.phonesTableAndTitleContainer}>
-        <div className={styles.phonesTableTitle}>Liste des téléphones</div>
+        <div className={styles.tableTitleAndButton}>
+          <div className={styles.phonesTableTitle}>Liste des téléphones</div>
+          <button
+            type="button"
+            className={styles.compareButton}
+            onClick={handleButtonClick}
+            disabled={selectedRows.length !== 2}
+          >
+            Comparateur
+          </button>
+        </div>
+
         <table className={styles.tableContainer}>
           <thead>
             <tr>
