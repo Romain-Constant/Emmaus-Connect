@@ -1,9 +1,12 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import styles from "./ConnexionForm.module.css";
 import logo from "../../assets/emmaus-small-logo.svg";
 
 function ConnexionForm() {
   const [inputs, setInputs] = useState({});
+  const navigate = useNavigate();
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -11,8 +14,14 @@ function ConnexionForm() {
     setInputs((values) => ({ ...values, [name]: value }));
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      axios.post("http://localhost:8000/users/login", inputs);
+      navigate("/utilisateur");
+    } catch (err) {
+      console.error(err);
+    }
   };
   return (
     <div className={styles.connexionFormContainer}>
