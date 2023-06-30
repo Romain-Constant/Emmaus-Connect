@@ -1,0 +1,27 @@
+.FaqPageContainer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mainContainer {
+  width: 60%;
+  height: 60%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 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 */
+
+.chatWindow {
+  width: 100%;
+  height: 100%;
+}
+
+.message {
+  font-size: 3rem;
+}
