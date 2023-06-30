@@ -54,8 +54,13 @@ const add = async (req, res) => {
     const [result] = await models.phone.insert(phone);
     res.json({ phoneId: result.insertId });
   } catch (err) {
-    console.error(err);
-    res.status(500).send("Error saving the phone");
+    if (err.sqlState === "23000") {
+      res.status(500).send("Cet IMEI est déjà enregistré");
+    } else if (err.sqlState === "HY000") {
+      res.status(500).send("IMEI doit faire 15 chiffres !");
+    } else {
+      res.status(500).send("Error saving the phone");
+    }
   }
 };
 

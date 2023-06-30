@@ -37,9 +37,10 @@ export default function PhoneForm() {
         `http://localhost:5000/uploadimg`,
         formData
       );
-      if (response.statusText === "OK") {
-        console.info("img send");
-      }
+      console.info(response);
+      // if (response.statusText === "OK") {
+      //   console.info("img send");
+      // }
     } catch (error) {
       console.error(error);
     }
@@ -91,11 +92,13 @@ export default function PhoneForm() {
         inputData
       );
       if (response.statusText === "OK") {
-        console.info(response);
         await pushImgtoDB();
+        window.alert("Téléphone ajouté");
       }
     } catch (error) {
-      console.error(error);
+      if (error.response.status === 500) {
+        window.alert(error.response.data);
+      }
     }
   };
 
