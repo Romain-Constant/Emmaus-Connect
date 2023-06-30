@@ -161,7 +161,7 @@ ALTER TABLE `emaus`.`phone`
   ADD COLUMN `image1` VARCHAR(100),
   ADD COLUMN `image2` VARCHAR(100),
   ADD COLUMN `image3` VARCHAR(100),
-  ADD COLUMN `price` VARCHAR(50);
+  ADD COLUMN `price` VARCHAR(50) NOT NULL;
   
 -- -----------------------------------------------------
 -- Table `emaus`.`address`
@@ -197,31 +197,31 @@ ALTER TABLE `emaus`.`center`
 -- Insert random data into address table
 INSERT INTO `emaus`.`address` (`city`, `department`, `district`, `postal_code`, `street_number`, `street_type`)
 VALUES
-  ('City1', 'Department1', 'District1', '12345', '1', 'Street'),
-  ('City2', 'Department2', 'District2', '54321', '2', 'Avenue'),
-  ('City3', 'Department3', 'District3', '67890', '3', 'Road'),
-  ('City4', 'Department4', 'District4', '98765', '4', 'Lane'),
-  ('City5', 'Department5', 'District5', '54321', '5', 'Boulevard');
+  ('Lille', 'Nord', 'l abbe Pierre', '59000', '83', 'rue'),
+  ('Paris', 'Ile de France', 'de la banque', '75000', '8', 'rue'),
+  ('Lyon', 'Auvergne Rhone Alpes', 'de Vienne', '69000', '104', 'route'),
+  ('Marseille', 'Provence Alpes Côte d Azur', 'Nationale', '98765', '10', 'boulevard'),
+  ('Strasbourg', 'Grand Est', 'Kageneck', '67000', '33', 'rue');
 -- Add more rows as needed;
 
 -- Insert random data into center table
 INSERT INTO `emaus`.`center` (`address_id`, `phone_number`, `contact_email`)
 VALUES
-  (1, '123456789', 'center1@example.com'),
-  (2, '987654321', 'center2@example.com'),
-  (3, '456789123', 'center3@example.com'),
-  (4, '789123456', 'center4@example.com'),
-  (5, '321654987', 'center5@example.com');
+  (1, '180059880', 'lille@emaus-connect.org'),
+  (2, '180059880', 'paris@emaus-connect.org'),
+  (3, '180059880', 'lyon@emaus-connect.org'),
+  (4, '180059880', 'marseille@emaus-connect.org'),
+  (5, '180059880', 'strasbourg@emaus-connect.org');
 -- Add more rows as needed;
 
 -- Insert random data into user table
 INSERT INTO `emaus`.`user` (`center_id`, `address_id`, `email`, `password`, `firstname`, `lastname`, `phone_number`, `role`)
 VALUES
-  (1, 1, 'user1@example.com', 'password1', 'John', 'Doe', '987654321', 'Role1'),
-  (2, 2, 'user2@example.com', 'password2', 'Jane', 'Smith', '123456789', 'Role2'),
-  (3, 3, 'user3@example.com', 'password3', 'David', 'Johnson', '456789123', 'Role1'),
-  (4, 4, 'user4@example.com', 'password4', 'Sarah', 'Williams', '789123456', 'Role2'),
-  (5, 5, 'user5@example.com', 'password5', 'Michael', 'Brown', '321654987', 'Role1');
+  (1, 1, 'jocelyn@emaus-connect.org', 'password1', 'Jocelyn', 'Deloose', '987654321', 'benevole'),
+  (2, 2, 'mohamed@emaus-connect.org', 'password2', 'Mohamed', 'Ait Amar', '123456789', 'benevole'),
+  (3, 3, 'sacha@emaus-connect.org', 'password3', 'Sacha', 'Loumachi', '456789123', 'benevole'),
+  (4, 4, 'romain@emaus-connect.org', 'password4', 'Romain', 'Constant', '789123456', 'directeur'),
+  (5, 5, 'alexandre@emaus-connect.org', 'password5', 'alexandre', 'Rouziere', '321654987', 'benevole');
 -- Add more rows as needed;
 
 -- Insert random data into status table
@@ -231,7 +231,16 @@ VALUES
   (2, NOW(), 0),
   (3, NOW(), 1),
   (4, NOW(), 0),
-  (5, NOW(), 1);
+  (5, NOW(), 1),
+  (1, NOW(), 1),
+  (2, NOW(), 0),
+  (3, NOW(), 1),
+  (4, NOW(), 0),
+  (5, NOW(), 1),
+  (1, NOW(), 1),
+  (2, NOW(), 0);
+ 
+  
 -- Add more rows as needed;
 
 -- Insert predefined data into category table
@@ -246,11 +255,20 @@ VALUES
 -- Insert random data into phone table
 INSERT INTO `emaus`.`phone` (`center_id`, `user_id`, `status_id`, `category_id`, `imei`, `brand`, `model`, `memory`, `storage`, `network`, `service_date`, `addition_date`, `phone_condition`, `image1`, `image2`, `image3`, `price`)
 VALUES
-  (1, 1, 1, 1, '123456789012345', 'Brand1', 'Model1', '4GB', '64GB', '4G', CURDATE(), NOW(), 'Dee', 'image1.jpg', 'image2.jpg', 'image3.jpg', 100),
-  (2, 2, 2, 2, '987654321098765', 'Brand2', 'Model2', '8GB', '128GB', '5G', CURDATE(), NOW(), 'Réparable', 'image4.jpg', 'image5.jpg', 'image6.jpg', 200),
-  (3, 3, 3, 3, '543216789012345', 'Brand3', 'Model3', '16GB', '256GB', '4G', CURDATE(), NOW(), 'Bloqué', 'image7.jpg', 'image8.jpg', 'image9.jpg', 300),
-  (4, 4, 4, 4, '987654321012345', 'Brand4', 'Model4', '32GB', '512GB', '5G', CURDATE(), NOW(), 'Reconditionnable', 'image10.jpg', 'image11.jpg', 'image12.jpg', 400),
-  (5, 5, 5, 5, '543216789098765', 'Brand5', 'Model5', '64GB', '1TB', '5G', CURDATE(), NOW(), 'Reconditionné', 'image13.jpg', 'image14.jpg', 'image15.jpg', 500);
+  (1, 1, 1, 1, '123456789012345', 'Apple', 'iPhone 12', '4GB', '64GB', '4G', CURDATE(), NOW(), 'Dee', 'image1.jpg', 'image2.jpg', 'image3.jpg', 100),
+  (2, 2, 2, 2, '987654321098765', 'Samsung', 'Galaxy S21', '8GB', '128GB', '5G', CURDATE(), NOW(), 'Réparable', 'image4.jpg', 'image5.jpg', 'image6.jpg', 200),
+  (3, 3, 3, 3, '543216789012345', 'Apple', 'iPhone 11', '16GB', '256GB', '4G', CURDATE(), NOW(), 'Bloqué', 'image7.jpg', 'image8.jpg', 'image9.jpg', 300),
+  (4, 4, 4, 4, '987654321012345', 'Samsung', 'Galaxy Note 20', '32GB', '512GB', '5G', CURDATE(), NOW(), 'Reconditionnable', 'image10.jpg', 'image11.jpg', 'image12.jpg', 400),
+  (5, 5, 5, 5, '543216789098765', 'Apple', 'iPhone SE', '64GB', '1TB', '5G', CURDATE(), NOW(), 'Reconditionné', 'image13.jpg', 'image14.jpg', 'image15.jpg', 500),
+  (4, 4, 6, 4, '543216789098766', 'Samsung', 'Galaxy A52', '128GB', '256GB', '4G', CURDATE(), NOW(), 'Réparable', 'image16.jpg', 'image17.jpg', 'image18.jpg', 600),
+  (3, 3, 7, 3, '543216789098767', 'Apple', 'iPhone XR', '32GB', '512GB', '5G', CURDATE(), NOW(), 'Reconditionnable', 'image19.jpg', 'image20.jpg', 'image21.jpg', 700),
+  (2, 2, 8, 2, '543216789098768', 'Samsung', 'Galaxy S20 FE', '64GB', '1TB', '5G', CURDATE(), NOW(), 'Reconditionné', 'image22.jpg', 'image23.jpg', 'image24.jpg', 800),
+  (1, 1, 9, 1, '543216789098769', 'Apple', 'iPhone XS', '64GB', '1TB', '5G', CURDATE(), NOW(), 'Reconditionné', 'image25.jpg', 'image26.jpg', 'image27.jpg', 900),
+  (5, 5, 10, 5, '543216789098770', 'Samsung', 'Galaxy S10', '128GB', '256GB', '4G', CURDATE(), NOW(), 'Réparable', 'image28.jpg', 'image29.jpg', 'image30.jpg', 1000),
+  (4, 4, 11, 4, '543216789098771', 'Apple', 'iPhone 8', '32GB', '512GB', '5G', CURDATE(), NOW(), 'Reconditionnable', 'image31.jpg', 'image32.jpg', 'image33.jpg', 1100),
+  (3, 3, 12, 3, '543216789098772', 'Samsung', 'Galaxy A71', '64GB', '1TB', '5G', CURDATE(), NOW(), 'Reconditionné', 'image34.jpg', 'image35.jpg', 'image36.jpg', 1200);
+
+
 -- Add more rows as needed;
 
 -- Insert more random data into other tables as needed

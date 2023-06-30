@@ -14,7 +14,7 @@ const browse = (req, res) => {
 
 const read = (req, res) => {
   models.center
-    .find(req.params.id)
+    .find(req.params.name)
     .then(([rows]) => {
       if (rows[0] == null) {
         res.sendStatus(404);

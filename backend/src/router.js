@@ -17,31 +17,29 @@ const { v4: uuidv4 } = require("uuid");
 
 const upload = multer({ dest: "./public/uploads" });
 
-router.post(
-  "/phone/uploadimg",
-  upload.array("phoneimg", 3),
-  async (req, res) => {
-    req.files.forEach((file) => {
+router.post("/uploadimg", upload.array("phoneimg", 3), async (req, res) => {
+  const uploadedFiles = {};
+
+  await Promise.all(
+    req.files.map(async (file, index) => {
       const { originalname, filename } = file;
       const uniqueId = uuidv4();
       const newFileName = `${uniqueId}-${originalname}`;
 
-      fs.rename(
+      await fs.promises.rename(
         `./public/uploads/${filename}`,
-        `./public/uploads/${newFileName}`,
-        (err) => {
-          if (err) {
-            throw err;
-          } else {
-            console.info(`File renamed to ${newFileName}`);
-          }
-        }
+        `./public/uploads/${newFileName}`
       );
-    });
 
-    res.send("Files uploaded");
-  }
-);
+      // console.info(`File Uploaded phone ${id} with name ${newFileName}`);
+      uploadedFiles[`image${index + 1}`] = newFileName;
+    })
+  );
+  // console.log(uploadedFiles["image1"]);
+  // console.log("Uploaded Files:", uploadedFiles);
+
+  res.send(uploadedFiles);
+});
 
 const userControllers = require("./controllers/userControllers");
 
@@ -59,6 +57,7 @@ const phoneControllers = require("./controllers/phoneControllers");
 router.get("/phone", phoneControllers.browse);
 router.get("/phone/:id", phoneControllers.read);
 router.put("/phone/:id", phoneControllers.edit);
+
 router.post("/phone", phoneControllers.add);
 router.delete("/phone/:id", phoneControllers.destroy);
 
@@ -77,7 +76,7 @@ router.post("/status", statusControllers.add);
 const centerControllers = require("./controllers/centerControllers");
 
 router.get("/center", centerControllers.browse);
-router.get("/center/:id", centerControllers.read);
+router.get("/center/:name", centerControllers.read);
 router.put("/center/:name", centerControllers.edit);
 router.post("/center", centerControllers.add);
 router.delete("/center/:id", centerControllers.destroy);

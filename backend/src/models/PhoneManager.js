@@ -1,3 +1,4 @@
+const moment = require("moment");
 const AbstractManager = require("./AbstractManager");
 
 class PhoneManager extends AbstractManager {
@@ -6,6 +7,9 @@ class PhoneManager extends AbstractManager {
   }
 
   insert(phone) {
+    const insertDate = moment(phone.addition_date).format(
+      "YYYY-MM-DD HH:mm:ss"
+    );
     return this.database.query(
       `INSERT INTO ${this.table} (center_id, user_id, status_id, category_id, imei, brand, model, memory, storage, network, service_date, addition_date, phone_condition, image1, image2, image3, price) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       [
@@ -20,7 +24,7 @@ class PhoneManager extends AbstractManager {
         phone.storage,
         phone.network,
         phone.service_date,
-        phone.addition_date,
+        insertDate,
         phone.phone_condition,
         phone.image1,
         phone.image2,

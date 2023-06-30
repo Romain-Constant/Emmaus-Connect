@@ -48,12 +48,11 @@ const edit = (req, res) => {
       res.sendStatus(500);
     });
 };
-
 const add = async (req, res) => {
   try {
     const phone = req.body;
     const [result] = await models.phone.insert(phone);
-    res.location(`/phone/${result.insertId}`).sendStatus(201);
+    res.json({ phoneId: result.insertId });
   } catch (err) {
     console.error(err);
     res.status(500).send("Error saving the phone");
