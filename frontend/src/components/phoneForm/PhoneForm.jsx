@@ -1,8 +1,8 @@
-import { useContext, useEffect, useRef, useState } from "react";
 import axios from "axios";
-import styles from "./PhoneForm.module.css";
-import { AuthContext } from "../../AuthContext";
+import { useContext, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../AuthContext";
+import styles from "./PhoneForm.module.css";
 
 export default function PhoneForm() {
   const [phoneInput, setPhoneInput] = useState({});
@@ -95,7 +95,7 @@ export default function PhoneForm() {
       );
       if (response.statusText === "OK") {
         await pushImgtoDB();
-        console.log(response);
+
         navigate("/utilisateur/bddtelephones/infos/:id");
         window.alert("Téléphone ajouté");
       }

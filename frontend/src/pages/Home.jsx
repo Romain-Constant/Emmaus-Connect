@@ -17,7 +17,9 @@ function Home() {
           </h2>
           <div className={styles.buttonContainer}>
             <Link to="/utilisateur/nouveautelephone">
-              <button className={styles.addPhone}>Ajouter un téléphone</button>
+              <button type="button" className={styles.addPhone}>
+                Ajouter un téléphone
+              </button>
             </Link>
           </div>
         </div>
@@ -33,7 +35,7 @@ function Home() {
           </h2>
           <div className={styles.buttonContainer}>
             <Link to="/utilisateur/bddtelephones">
-              <button className={styles.addPhoneOrange}>
+              <button type="button" className={styles.addPhoneOrange}>
                 Liste de téléphones
               </button>
             </Link>
