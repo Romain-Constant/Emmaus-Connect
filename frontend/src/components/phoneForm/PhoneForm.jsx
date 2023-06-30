@@ -93,11 +93,11 @@ export default function PhoneForm() {
         "http://localhost:5000/phone",
         inputData
       );
+      const idAddedPhone = await response.data.phoneId;
       if (response.statusText === "OK") {
         await pushImgtoDB();
-
-        navigate("/utilisateur/bddtelephones/infos/:id");
-        window.alert("Téléphone ajouté");
+        navigate(`/utilisateur/bddtelephones/infos/${idAddedPhone}`);
+        // window.alert("Téléphone ajouté");
       }
     } catch (error) {
       if (error.response.status === 500) {
