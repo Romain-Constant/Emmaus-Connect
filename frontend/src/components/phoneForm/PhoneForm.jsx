@@ -1,8 +1,54 @@
-import { useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
+import axios from "axios";
 import styles from "./PhoneForm.module.css";
+import { AuthContext } from "../../AuthContext";
 
 export default function PhoneForm() {
   const [phoneInput, setPhoneInput] = useState({});
+  const [center, setCenter] = useState([]);
+  const inputRef1 = useRef();
+  const inputRef2 = useRef();
+  const inputRef3 = useRef();
+  const { currentUser } = useContext(AuthContext);
+
+  function getRandomNumber(min, max) {
+    const randomDecimal = Math.random();
+    const randomInteger = Math.ceil(randomDecimal * (max - min + 1));
+    const result = randomInteger + min - 1;
+    return result;
+  }
+
+  const FetchData = async () => {
+    try {
+      const result = await axios.get(`http://localhost:5000/center`);
+      setCenter(result.data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const pushImgtoDB = async () => {
+    try {
+      const formData = new FormData();
+      formData.append("phoneimg", inputRef1.current.files[0]);
+      formData.append("phoneimg", inputRef2.current.files[0]);
+      formData.append("phoneimg", inputRef3.current.files[0]);
+      const response = await axios.post(
+        `http://localhost:5000/uploadimg`,
+        formData
+      );
+      console.info(response);
+      // if (response.statusText === "OK") {
+      //   console.info("img send");
+      // }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    FetchData();
+  }, []);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -14,50 +60,47 @@ export default function PhoneForm() {
     setPhoneInput((values) => ({ ...values, [name]: value }));
   };
 
-  const inputRef1 = useRef();
-  const inputRef2 = useRef();
-  const inputRef3 = useRef();
-
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const formData = new FormData();
+    if (!phoneInput.center) {
+      console.error("Center not selected");
+      return;
+    }
 
-    // Append form fields
-    Object.entries(phoneInput).forEach(([key, value]) => {
-      formData.append(key, value);
-    });
-
-    // Append images
-    formData.append("image1", inputRef1.current.files[0]);
-    formData.append("image2", inputRef2.current.files[0]);
-    formData.append("image3", inputRef3.current.files[0]);
-    console.info(formData);
-    // Send the formData to the server using fetch or axios
     try {
-      const response = await fetch("YOUR_API_ENDPOINT", {
-        method: "POST",
-        body: formData,
+      const result = await axios.get(
+        `http://localhost:5000/center/${phoneInput.center}`
+      );
+      const centerId = result.data.id;
+      const statusResponse = await axios.post("http://localhost:5000/status", {
+        user_id: currentUser?.user_id,
       });
-      console.info(response);
+      const { statusId } = statusResponse.data;
 
-      // Handle the response
-      // ...
+      const inputData = {
+        center_id: centerId,
+        user_id: currentUser?.user_id,
+        status_id: statusId,
+        category_id: getRandomNumber(1, 5),
+        price: getRandomNumber(1, 600),
+        ...phoneInput,
+      };
+
+      const response = await axios.post(
+        "http://localhost:5000/phone",
+        inputData
+      );
+      if (response.statusText === "OK") {
+        await pushImgtoDB();
+        window.alert("Téléphone ajouté");
+      }
     } catch (error) {
-      // Handle errors
-      // ...
+      if (error.response.status === 500) {
+        window.alert(error.response.data);
+      }
     }
   };
-  /*   `center_id`, `user_id`, `status_id`, `category_id`, `imei`, `brand`,
-     `model`, `memory`, `storage`, `network`, `service_date`, `addition_date`,
-      `phone_condition`, `image1`, `image2`, `image3`, `price` 
-      
-      TODO 
-      center_id need to be set before in insert, then in the forms select with the existing centers by axios fetch 
-      user_id need to be get from the params
-      status_id need to be created before insert in back 
-      category_id need to be attribitued by algorithm in the back (HC, A, C etc...) 
-      addition_date need to be attributed in the back by getting the current date */
 
   const labels = [
     {
@@ -86,8 +129,13 @@ export default function PhoneForm() {
       type: "number",
     },
     { name: "network", label: "Réseau", options: ["3G", "4G", "5G"] },
-    //  TODO fetch center from back to make options
-    { name: "center", label: "Centre", options: ["Bordeaux", "Lille", "Lyon"] },
+    {
+      name: "center",
+      label: "Centre",
+      options: center.map(({ city }) => {
+        return `${city}`;
+      }),
+    },
 
     {
       name: "service_date",

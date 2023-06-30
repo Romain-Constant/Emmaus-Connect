@@ -28,6 +28,17 @@ const read = (req, res) => {
     });
 };
 
+const add = async (req, res) => {
+  try {
+    const status = req.body;
+    const [result] = await models.status.insert(status);
+    res.json({ statusId: result.insertId });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Error saving the status");
+  }
+};
+
 const edit = (req, res) => {
   const status = req.body;
 
@@ -48,42 +59,9 @@ const edit = (req, res) => {
     });
 };
 
-const add = (req, res) => {
-  const status = req.body;
-
-  // TODO validations (length, format...)
-
-  models.status
-    .insert(status)
-    .then(([result]) => {
-      res.location(`/status/${result.insertId}`).sendStatus(201);
-    })
-    .catch((err) => {
-      console.error(err);
-      res.sendStatus(500);
-    });
-};
-
-const destroy = (req, res) => {
-  models.status
-    .delete(req.params.id)
-    .then(([result]) => {
-      if (result.affectedRows === 0) {
-        res.sendStatus(404);
-      } else {
-        res.sendStatus(204);
-      }
-    })
-    .catch((err) => {
-      console.error(err);
-      res.sendStatus(500);
-    });
-};
-
 module.exports = {
   browse,
   read,
   edit,
   add,
-  destroy,
 };

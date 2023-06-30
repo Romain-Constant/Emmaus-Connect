@@ -32,8 +32,6 @@ const read = (req, res) => {
 const edit = (req, res) => {
   const phone = req.body;
 
-  // TODO validations (length, format...)
-
   phone.id = parseInt(req.params.id, 10);
 
   models.phone
@@ -50,15 +48,19 @@ const edit = (req, res) => {
       res.sendStatus(500);
     });
 };
-
 const add = async (req, res) => {
   try {
     const phone = req.body;
     const [result] = await models.phone.insert(phone);
-    res.location(`/phone/${result.insertId}`).sendStatus(201);
+    res.json({ phoneId: result.insertId });
   } catch (err) {
-    console.error(err);
-    res.status(500).send("Error saving the user");
+    if (err.sqlState === "23000") {
+      res.status(500).send("Cet IMEI est déjà enregistré");
+    } else if (err.sqlState === "HY000") {
+      res.status(500).send("IMEI doit faire 15 chiffres !");
+    } else {
+      res.status(500).send("Error saving the phone");
+    }
   }
 };
 

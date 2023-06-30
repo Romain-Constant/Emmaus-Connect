@@ -14,7 +14,7 @@ const browse = (req, res) => {
 
 const read = (req, res) => {
   models.center
-    .find(req.params.id)
+    .find(req.params.name)
     .then(([rows]) => {
       if (rows[0] == null) {
         res.sendStatus(404);
@@ -30,11 +30,8 @@ const read = (req, res) => {
 
 const edit = (req, res) => {
   const center = req.body;
-
+  center.cityParams = req.params.name;
   // TODO validations (length, format...)
-
-  center.id = parseInt(req.params.id, 10);
-
   models.center
     .update(center)
     .then(([result]) => {
@@ -52,8 +49,6 @@ const edit = (req, res) => {
 
 const add = (req, res) => {
   const center = req.body;
-
-  // TODO validations (length, format...)
 
   models.center
     .insert(center)
