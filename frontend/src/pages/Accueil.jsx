@@ -19,6 +19,12 @@ function Accueil() {
           </button>
         </Link>
       </nav>
+      <div className={styles.mainContainer}>
+        <h1 className={styles.mainTitle}>Bienvenue sur</h1>
+        <div className={styles.mainImageContainer}>
+          <img src={logo} alt="" />
+        </div>
+      </div>
       <Footer />
     </div>
   );

@@ -35,7 +35,7 @@ function App() {
       element: <MainLayout />,
       children: [
         {
-          path: "/utilisateur/home",
+          path: "/utilisateur",
           element: <Home />,
         },
         {

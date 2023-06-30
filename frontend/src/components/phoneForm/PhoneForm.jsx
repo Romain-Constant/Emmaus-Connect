@@ -2,6 +2,7 @@ import { useContext, useEffect, useRef, useState } from "react";
 import axios from "axios";
 import styles from "./PhoneForm.module.css";
 import { AuthContext } from "../../AuthContext";
+import { useNavigate } from "react-router-dom";
 
 export default function PhoneForm() {
   const [phoneInput, setPhoneInput] = useState({});
@@ -10,6 +11,7 @@ export default function PhoneForm() {
   const inputRef2 = useRef();
   const inputRef3 = useRef();
   const { currentUser } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   function getRandomNumber(min, max) {
     const randomDecimal = Math.random();
@@ -93,6 +95,8 @@ export default function PhoneForm() {
       );
       if (response.statusText === "OK") {
         await pushImgtoDB();
+        console.log(response);
+        navigate("/utilisateur/bddtelephones/infos/:id");
         window.alert("Téléphone ajouté");
       }
     } catch (error) {
