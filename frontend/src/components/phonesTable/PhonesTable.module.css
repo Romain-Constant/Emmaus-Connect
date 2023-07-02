@@ -1,0 +1,93 @@
+.phonesTableAndTitleContainer {
+  flex: 5;
+  height: 100%;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.phonesTableTitle {
+  width: 100%;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.tableContainer {
+  width: 100%;
+  height: 75%;
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+
+.theadRow {
+  font-size: 1.2rem;
+  font-weight: 600;
+  height: 50px;
+  color: var(--blue);
+  background-color: var(--yellow);
+  position: sticky;
+  top: 0;
+}
+
+.bodyRows {
+  text-align: center;
+  height: 40px;
+}
+
+.bodyRows:nth-child(2n + 1) {
+  background-color: var(--light-gray);
+}
+
+.bodyRows:hover {
+  background-color: var(--medium-gray);
+}
+.rows {
+  font-size: 1.2rem;
+}
+
+.eyeIcon {
+  font-size: 1.4rem;
+}
+
+.eyeIcon:hover > * {
+  fill: var(--green);
+}
+
+.eyeIcon:hover {
+  color: var(--green);
+}
+
+.colorBloc {
+  width: 10px;
+  height: 100%;
+  margin: 0;
+}
+
+.headerColorBloc {
+  background-color: var(--yellow);
+  height: 100%;
+}
+
+.category1 {
+  background-color: var(--blue);
+}
+
+.category2 {
+  background-color: var(--green);
+}
+
+.category3 {
+  background-color: var(--yellow);
+}
+
+.category4 {
+  background-color: var(--orange);
+}
+
+.category4 {
+  background-color: var(--red);
+}

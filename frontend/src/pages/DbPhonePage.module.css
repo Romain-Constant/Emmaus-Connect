@@ -1,0 +1,233 @@
+.DbPhonePageContainer {
+  width: 100%;
+  height: 85%;
+  display: flex;
+  align-items: center;
+  background-color: var(--white);
+  margin-top: 100px;
+  position: relative;
+}
+
+.filterSideBarContainer {
+  flex: 1;
+  height: 100%;
+  background-image: linear-gradient(
+    0deg,
+    hsl(197deg 37% 24%) 15%,
+    hsl(193deg 46% 26%) 49%,
+    hsl(189deg 54% 28%) 56%,
+    hsl(186deg 62% 29%) 61%,
+    hsl(182deg 67% 31%) 66%,
+    hsl(178deg 65% 34%) 76%,
+    hsl(173deg 58% 39%) 100%
+  );
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5%;
+  margin: 100px 0;
+}
+
+.categoryFilterContainer {
+  width: 80%;
+  color: var(--white);
+  margin-top: 2rem;
+}
+
+.categoryFilterContainer label {
+  color: var(--white);
+  font-size: 1.2rem;
+  margin-left: 0.5rem;
+}
+
+.filterCategName {
+  font-size: 1.5rem;
+  color: var(--blue);
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.checkboxCell {
+  height: 50px;
+}
+
+.phonesTableAndTitleContainer {
+  flex: 5;
+  height: 100%;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.phonesTableTitle {
+  width: 100%;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.parentTableContainer {
+  width: 100%;
+  height: 80%;
+  overflow-y: scroll;
+}
+
+.tableContainer {
+  width: 100%;
+  max-height: 100%;
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+
+.tableTitleAndButton {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.compareButton {
+  cursor: pointer;
+  border: none;
+  background-color: var(--red);
+  border: solid 1px transparent;
+  padding: 0.7rem 2rem;
+  border-radius: 2rem;
+  color: var(--white);
+  font-weight: 600;
+  box-shadow: var(--button-shadow);
+}
+
+.compareButton:disabled {
+  color: var(--medium-gray);
+  box-shadow: none;
+  text-decoration: line-through;
+  cursor: default;
+}
+
+.interrogationIcon {
+  font-size: 2.5rem;
+  border-radius: 1rem;
+  margin-left: 1rem;
+}
+
+.theadRow {
+  font-size: 1.2rem;
+  font-weight: 600;
+  height: 50px;
+  color: var(--blue);
+  background-color: var(--yellow);
+  position: sticky;
+  top: 0;
+}
+
+.bodyRows {
+  height: 50px;
+}
+
+.bodyRows:nth-child(2n + 1) {
+  background-color: var(--light-gray);
+  height: 50px;
+}
+
+.bodyRows:hover {
+  background-color: var(--medium-gray);
+}
+
+.rows {
+  font-size: 1.2rem;
+  height: 50px;
+  text-align: center;
+}
+
+.eyeIcon {
+  font-size: 1.4rem;
+}
+
+.eyeIcon:hover > * {
+  fill: var(--green);
+}
+
+.eyeIcon:hover {
+  color: var(--green);
+}
+
+.colorBloc {
+  width: 20px;
+  height: 50px;
+  margin: 0;
+}
+
+.headerColorBloc {
+  background-color: var(--yellow);
+  height: 50px;
+}
+
+.category1 {
+  background-color: var(--blue);
+}
+
+.category2 {
+  background-color: var(--green);
+}
+
+.category3 {
+  background-color: var(--yellow);
+}
+
+.category4 {
+  background-color: var(--orange);
+}
+
+.category5 {
+  background-color: var(--red);
+}
+
+.hoverMessage {
+  position: absolute;
+  top: 15%;
+  right: 0;
+  width: 200px;
+  height: 100px;
+  transform: translate(-50%, -50%);
+  background-color: #ffffff;
+  padding: 5px 10px;
+  border: 1px solid #cccccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.modalMessage {
+  font-size: 1.2rem;
+  font-weight: 400;
+}
+
+.blue {
+  color: var(--blue);
+  font-weight: 600;
+}
+
+.green {
+  color: var(--green);
+  font-weight: 600;
+}
+
+.yellow {
+  color: var(--yellow);
+  font-weight: 600;
+}
+
+.orange {
+  color: var(--orange);
+  font-weight: 600;
+}
+
+.red {
+  color: var(--red);
+  font-weight: 600;
+}
