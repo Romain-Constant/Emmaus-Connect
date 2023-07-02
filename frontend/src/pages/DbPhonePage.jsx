@@ -10,6 +10,7 @@ function DbPhonePage() {
   const [phones, setPhones] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectedStatus, setSelectedStatus] = useState(["À vendre"]);
+  const [selectedCity, setSelectedCity] = useState([]);
   const [selectedRows, setSelectedRows] = useState([]);
   const [isHovered, setIsHovered] = useState(false);
   const navigate = useNavigate();
@@ -30,8 +31,10 @@ function DbPhonePage() {
     (phone) =>
       (selectedCategories.length === 0 ||
         selectedCategories.includes(phone.category)) &&
-      (selectedStatus.length === 0 || selectedStatus.includes(phone.status))
+      (selectedStatus.length === 0 || selectedStatus.includes(phone.status)) &&
+      (selectedCity.length === 0 || selectedCity.includes(phone.center_city))
   );
+
   const handleCategoryChange = (category) => {
     if (selectedCategories.includes(category)) {
       setSelectedCategories(selectedCategories.filter((c) => c !== category));
@@ -45,6 +48,14 @@ function DbPhonePage() {
       setSelectedStatus(selectedStatus.filter((s) => s !== status));
     } else {
       setSelectedStatus([...selectedStatus, status]);
+    }
+  };
+
+  const handleCityChange = (status) => {
+    if (selectedCity.includes(status)) {
+      setSelectedCity(selectedCity.filter((s) => s !== status));
+    } else {
+      setSelectedCity([...selectedCity, status]);
     }
   };
 
@@ -155,6 +166,63 @@ function DbPhonePage() {
               onChange={() => handleCategoryChange("Premium")}
             />
             <label htmlFor="categoryPremium">Premium</label>
+          </div>
+        </div>
+        <div className={styles.categoryFilterContainer}>
+          <div>
+            <div
+              className={`${styles.filterCategName} ${styles.localisationTitle}`}
+            >
+              Localisation
+            </div>
+            <input
+              className={styles.checkbox}
+              type="checkbox"
+              id="cityLille"
+              checked={selectedCity.includes("Lille")}
+              onChange={() => handleCityChange("Lille")}
+            />
+            <label htmlFor="cityLille">Lille</label>
+          </div>
+          <div>
+            <input
+              className={styles.checkbox}
+              type="checkbox"
+              id="cityParis"
+              checked={selectedCity.includes("Paris")}
+              onChange={() => handleCityChange("Paris")}
+            />
+            <label htmlFor="cityParis">Paris</label>
+          </div>
+          <div>
+            <input
+              className={styles.checkbox}
+              type="checkbox"
+              id="cityLyon"
+              checked={selectedCity.includes("Lyon")}
+              onChange={() => handleCityChange("Lyon")}
+            />
+            <label htmlFor="cityLyon">Lyon</label>
+          </div>
+          <div>
+            <input
+              className={styles.checkbox}
+              type="checkbox"
+              id="cityMarseille"
+              checked={selectedCity.includes("Marseille")}
+              onChange={() => handleCityChange("Marseille")}
+            />
+            <label htmlFor="cityMarseille">Marseille</label>
+          </div>
+          <div>
+            <input
+              className={styles.checkbox}
+              type="checkbox"
+              id="cityStrasbourg"
+              checked={selectedCity.includes("Strasbourg")}
+              onChange={() => handleCityChange("Strasbourg")}
+            />
+            <label htmlFor="cityStrasbourg">Strasbourg</label>
           </div>
         </div>
       </div>

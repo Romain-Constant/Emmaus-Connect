@@ -1,9 +1,8 @@
-import React, { useState } from "react";
-import { OpenAIApi } from "openai/api";
-import axios from "axios";
+import React from "react";
+
 import styles from "./FaqPage.module.css";
 
-async function fetchChatGPT(message) {
+/* async function fetchChatGPT(message) {
   const apiKey = "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";
   const url = "https://api.openai.com/v1/engines/text-davinci-003/completions";
 
@@ -28,21 +27,9 @@ async function fetchChatGPT(message) {
     console.error("Error:", error);
     throw error;
   }
-}
+} */
 
 function FaqPage() {
-  const [chat, setChat] = useState([]);
-  const [currentMessage, setCurrentMessage] = useState("");
-
-  const handleSendMessage = async () => {
-    const response = await fetchChatGPT(currentMessage);
-    setChat((prevChat) => [
-      ...prevChat,
-      { user: currentMessage, ai: response },
-    ]);
-    setCurrentMessage("");
-  };
-
   return (
     <div className={styles.FaqPageContainer}>
       <div className={styles.mainContainer}>
