@@ -68,7 +68,6 @@ function InfosPhonePage() {
     await updateStatus(); // Appel de la fonction updateStatus après la mise à jour du statut
   };
 
-  console.log(phone);
   return (
     <div className={styles.infosPhonePageContainer}>
       <div className={styles.phoneInfoContainer}>
