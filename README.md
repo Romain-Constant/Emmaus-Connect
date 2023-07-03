@@ -10,5 +10,6 @@ The objective is to develop a smartphone classification tool in order to generat
 ![connection](./frontend/src/assets/connection_form.png)
 ![user_homepage](./frontend/src/assets/user_homepage.png)
 ![phones_add_form](./frontend/src/assets/phones_add_form.png)
+![phone_details_](./frontend/src/assets/phone_details.png)
 ![phones_list](./frontend/src/assets/phones_list.png)
 ![phones_compare](./frontend/src/assets/phones_compare.png)
